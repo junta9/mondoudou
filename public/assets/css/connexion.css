@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+
+}
+.photo {
+    background-image: url(/assets/images/bg-login.jpg);
+    width: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+form {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    gap: 30px;
+    background: #f1e8e5;
+}
+p {
+    color: rgb(92, 91, 91);
+    font-size: 1.3em;
+    text-align: center;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.inputBox {
+    position: relative;
+    width: 250px;
+}
+
+.inputBox input{
+    /* height: 50px; */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: white;
+    outline: none;
+    font-size: 1em;
+    transition: 0.5s;
+    border-radius: 5px;
+}
+
+.inputBox span {
+    position: absolute;
+    left: 0;
+    padding: 10px;
+    pointer-events: none;
+    font-size: 1em;
+    color: rgb(135, 135, 135);
+    text-transform: uppercase;
+    transition: 0.5s;
+}
+
+.inputBox input:valid ~ span,
+.inputBox input:focus ~ span {
+    color: black;
+    transform: translateX(0px) translateY(-22px);
+    font-size: 1em;
+    padding: 0 10px;
+    background: #b4bb99 to 50%, white to 100%;
+    /* border-left: 1px solid #414627; */
+    /* border-right: 1px solid #414627; */
+    letter-spacing: 0.2em;
+    /* background: #00dfc4;
+    border-radius: 2px; */
+}
+
+.inputBox input:valid,
+.inputBox input:focus {
+    border: 1px solid #414627;
+}
+@media screen and (max-width: 768px){
+    .photo {
+        display: none;
+    }
+    form {
+        width: 100%;
+    }
+}

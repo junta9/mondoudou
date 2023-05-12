@@ -1,0 +1,124 @@
+product:
+id: int
+category_id: int
+name: varchar
+description: varchar
+image: image
+état: varchar
+quantity: int
+price: float
+create_at: date
+update_at : date
+
+user:
+id: int
+email: varchar
+password: varchar
+nom: varchar
+prenom: varchar
+address: varchar
+phone: varchar
+create_at: date
+update_at: date
+
+category:
+id: int
+name: varchar
+create_at: date
+update_at: date
+
+order:
+id: int
+user_id: int
+product_id: int
+quantity: int
+status: varchar
+total_price: float
+create_at: date
+update_at: date
+
+cart:
+id: int
+create_at: date
+ipdate_at: date
+
+cart_item:
+id: int
+cart_id: int
+product_id: int
+quantity: int
+price: float
+create_at: date
+update_at: date
+
+payment:
+id: int
+order_id: int
+amount: float
+status: varchar
+created_at: date
+update_at: date
+
+***************************************************************
+
+CREATE TABLE Category (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE Product (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    quantity INT NOT NULL,
+    category_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (category_id) REFERENCES Category(id)
+);
+
+CREATE TABLE User (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    address TEXT,
+    phone VARCHAR(20),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE Order (
+    id INT NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    total DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES User(id)
+);
+
+CREATE TABLE OrderItem (
+    id INT NOT NULL AUTO_INCREMENT,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (order_id) REFERENCES Order(id),
+    FOREIGN KEY (product_id) REFERENCES Product(id)
+);
+
+CREATE TABLE Payment (
+    id INT NOT NULL AUTO_INCREMENT,
+    order_id INT NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (order_id) REFERENCES Order(id)
+);
+
+

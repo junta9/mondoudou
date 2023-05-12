@@ -1,0 +1,8 @@
+
+<div class="form-widget d-flex">
+    {% for image in field.value %}
+    <div class="mx-2">
+        <img src="/images/photos/{{ image }}" alt="image" style="height: 100px; width: auto; object-fit: contain;">
+    </div>
+    {% endfor %}
+</div>
