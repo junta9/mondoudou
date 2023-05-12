@@ -75,6 +75,12 @@
                </div>
             </div>
          </div>
+         <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="{{ path("app_home") }}">Home</a>
+            <a href="{{ path("app_category", {id: peluchesCategory.id}) }}">Peluches</a>
+            <a href="{{ path("app_category", {id: doudousCategory.id}) }}">Doudous</a>
+         </div>
          {# header_section Two when screen is small #}
          <div class="header_section headerTwo d-none">
             <div class="container">
@@ -129,12 +135,7 @@
 
       </div>
    </div>
-   <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <a href="{{ path("app_home") }}">Home</a>
-      <a href="{{ path("app_category", {id: peluchesCategory.id}) }}">Peluches</a>
-      <a href="{{ path("app_category", {id: doudousCategory.id}) }}">Doudous</a>
-   </div>
+   
 {% endblock %}
 {% block body %}
 
