@@ -954,6 +954,10 @@ input.mail_bt::placeholder {
   border: none;
   overflow: hidden;
 }
+.card-index {
+  box-shadow: 2px 2px 5px!important;
+  border-radius: 5px;
+}
 .thumbnail_images ul {
   list-style: none;
   justify-content: center;
@@ -1117,7 +1121,7 @@ input.mail_bt::placeholder {
   font-size: 16px;
   color: #f26522;
   background-color: transparent;
-  text-align: right;
+  /* text-align: right; */
   font-weight: bold;
   border: none;
 }
@@ -1138,4 +1142,43 @@ input.mail_bt::placeholder {
 .search-form button {
   border-radius: 0 5px 5px 0!important;
 }
+.search-main {
+  height: 50vh;
+  padding-top: 50px;
+}
+
+@media screen and (max-width: 426px) {
+  .containt_main {
+    flex-direction: column!important;
+  }
+  .main {
+    margin: 20px 0!important;
+  }
+  .header_box {
+    justify-content: center;
+  }
+}
+#notification-cat.show {
+  display: flex!important;
+  align-self: center;
+  justify-content: center;
+  position: absolute!important;
+  width: 80%;
+  bottom: 15%;
+  animation: fadeOut 5s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none !important;
+  }
+}
+
+/* #logo_title_2 {
+  display: block!important;
+} */
 /* product page css end */

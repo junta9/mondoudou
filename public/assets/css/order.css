@@ -27,28 +27,17 @@ body{
 .cart{
   background-color: #fff;
   padding: 4vh 5vh;
-  border-bottom-left-radius: 1rem;
-  border-top-left-radius: 1rem;
+  border-radius: 1rem;
 }
 @media(max-width:767px){
   .cart{
       padding: 4vh;
-      border-bottom-left-radius: unset;
-      border-top-right-radius: 1rem;
   }
 }
 .summary{
   background-color: #f4e1d5;
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
   padding: 4vh;
   color: rgb(65, 65, 65);
-}
-@media(max-width:767px){
-  .summary{
-  border-top-right-radius: unset;
-  border-bottom-left-radius: 1rem;
-  }
 }
 .summary .col-2{
   padding: 0;
@@ -147,11 +136,11 @@ a:hover{
   background-position-y: center;
 }
 
-.panier {
+/* .panier {
   min-height: 50%;
   max-height: 70%;
   overflow-y: auto;
-}
+} */
 /* copyright section start */
 
 .copyright_section {

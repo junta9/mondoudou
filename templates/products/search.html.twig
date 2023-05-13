@@ -8,7 +8,7 @@
 {% endblock %}
 {% block header %}
 <!-- banner bg main start -->
-<div class="banner_bg_main">
+   <div class="banner_bg_main">
       <!-- header top section start -->
       <div class="container">
          <div class="header_section_top">
@@ -28,7 +28,7 @@
                      <div class="container">
                         <div class="containt_main">
                            
-                           <span class="toggle_icon" onclick="openNav()"><img src="{{ asset('assets/images/toggle-icon.png') }}"></span>
+                           <span class="toggle_icon" onclick="openNav()"><img src="{{ asset('assets/images/toggle-icon.png') }}" alt=""></span>
                           
                            <div class="main">
                               <!-- Another variation with a button -->
@@ -48,14 +48,29 @@
                            <div class="header_box">
                               <div class="login_menu">
                                  <ul>
-                                    <li><a href="{{ path('app_panier') }}">
+                                    <li>
+                                          <a href="{{ path('app_panier') }}">
                                           <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                          <span id="custom_link" class="padding_10">Cart</span></a>
+                                          <span id="custom_link" class="padding_10">Panier</span></a>
                                     </li>
-                                    <li><a href="{{ path('app_login') }}">
+                                    {% if is_granted('ROLE_USER') %}
+                                    <li>
+                                          <a href="">
                                           <i class="fa fa-user" aria-hidden="true"></i>
-                                          <span id="custom_link" class="padding_10">Account</span></a>
+                                          <span id="custom_link" class="padding_10">Compte</span></a>
                                     </li>
+                                    <li>
+                                          <a href="{{ path('app_logout') }}">
+                                          <i class="fa fa-user" aria-hidden="true"></i>
+                                          <span id="custom_link" class="padding_10">Deconnexion</span></a>
+                                    </li>
+                                    {% else %}
+                                    <li>
+                                          <a href="{{ path('app_login') }}">
+                                          <i class="fa fa-user" aria-hidden="true"></i>
+                                          <span id="custom_link" class="padding_10">Se connecter</span></a>
+                                    </li>
+                                    {% endif %}
                                  </ul>
                               </div>
                            </div>
@@ -65,14 +80,68 @@
                </div>
             </div>
          </div>
+         <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="{{ path("app_home") }}">Home</a>
+            <a href="{{ path("app_category", {id: peluchesCategory.id}) }}">Peluches</a>
+            <a href="{{ path("app_category", {id: doudousCategory.id}) }}">Doudous</a>
+            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#joinModal1">Contact</a>
+         </div>
+         {# header_section Two when screen is small #}
+         <div class="header_section headerTwo d-none">
+            <div class="container">
+               <div class="containt_main">
+                  <div id="mySidenav" class="sidenav">
+                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                     <a href="{{ path("app_home") }}">Home</a>
+                     <a href="{{ path("app_category", {id: peluchesCategory.id}) }}">Peluches</a>
+                     <a href="{{ path("app_category", {id: doudousCategory.id}) }}">Doudous</a>
+                     <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#joinModal1">Contact</a>
+                  </div>
+                  <span class="toggle_icon" onclick="openNav()"><img src="{{ asset('assets/images/toggle-icon.png') }}" alt=""></span>
+                  {# <div class="dropdown">
+                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category 
+                     </button>
+                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                     </div>
+                  </div> #}
+                  <div class="main m-0">
+                     <!-- Another variation with a button -->
+                     <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search this blog">
+                        <div class="input-group-append">
+                           <button class="btn btn-secondary" type="button" style="background-color: #f26522; border-color:#f26522 ">
+                           <i class="fa fa-search"></i>
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="header_box">
+                     
+                     <div class="login_menu">
+                        <ul>
+                           <li><a href="#">
+                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                              <span class="padding_10">Cart</span></a>
+                           </li>
+                           <li><a href="#">
+                              <i class="fa fa-user" aria-hidden="true"></i>
+                              <span class="padding_10">Cart</span></a>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+                     <div class="logo"><a href="{{ path("app_home") }}" id="logo_title">Mondoudou</a></div>
+         </div>
+
       </div>
    </div>
-   <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <a href="{{ path("app_home") }}">Home</a>
-      <a href="{{ path("app_category", {id: peluchesCategory.id}) }}">Peluches</a>
-      <a href="{{ path("app_category", {id: doudousCategory.id}) }}">Doudous</a>
-   </div>
+   
 {% endblock %}
 {% block body %}
         <!-- Section-->
@@ -103,34 +172,32 @@
                     </div>
                 {% endfor %}                               
 
-                <h2 id='titre_peluche' class='text-center mt-5'>Recherches</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center mt-5">
-                    {% for photo in photos %}
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            {# <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div> #}
-                            <!-- Product image-->
-                            <img class="card-img-top" src="/images/photos/{{ photo.imageName }}" alt="..." />
-
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">{{ photo.product.name }}</h5>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through"></span>
-                                    {{ photo.product.price }} €
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="d-flex  justify-content-between card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-primary mt-auto" id='add' href="">Ajouter</a></div>
-                                <div class="text-center"><a class="btn btn-dark mt-auto" id='see-more' href="{{ path("app_product", {id: photo.product.id}) }}">Voir plus</a></div>
-                            </div>
+                <h2 id='titre_peluche' class='text-center mt-5'>Recherche</h2>
+               {% if photos is empty %}
+                  <div class="row w-100 text-center mt-5 search-main">
+                  <h5>Nous sommes désolés, aucun produits ne correspond à votre recherche</h5>
+                  </div>
+               {% else %}
+               {# <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center mt-5"> #}
+               <div class="row search-card justify-content-center">
+                  {% for photo in photos %}
+                  <div class="col-lg-3 col-sm-3">
+                           <div class="card-index box_main">
+                              <h4 class="shirt_text">{{ photo.product.name }}</h4>
+                              <p class="price_text">Prix <span style="color: #262626;">€ {{ photo.product.price }}</span></p>
+                              <div class="tshirt_img"><img src="images/photos/{{ photo.imageName }}" alt="" style="height: 250px"></div> 
+                              {# message de notifications #}
+                              <div id="notification-cat" class="alert alert-success " role="alert" style="display:none;">
+                                 Produit ajouté au panier
+                              </div>
+                              <div class="btn_main">
+                                 <div class="buy_bt"><a class="add-to-cart" id="add" href="" data-id="{{ photo.product.id }}">Ajouter au panier</a></div>
+                                 <div class="seemore_bt"><a href="{{ path("app_product", {id: photo.product.id}) }}">Voir plus</a></div>
+                              </div>
+                           </div>
                         </div>
-                    </div>
-                    {% endfor %}
+                  {% endfor %}
+               {% endif %}
 
                    
                 </div>

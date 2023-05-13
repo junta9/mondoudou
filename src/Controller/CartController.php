@@ -22,7 +22,6 @@ class CartController extends AbstractController
     {
         $panier = $session->get('panier', []);
         $panierWithDatas = [];
-
         foreach($panier as $id => $quantity) 
         {
             $panierWithDatas[] = [
@@ -30,34 +29,35 @@ class CartController extends AbstractController
                 'photo' => $photosRepository->findOneBy(['product' => $id]),
                 'quantity' => $quantity,
             ];
-
+            
         }
         $total = 0;
-        $shipping = 5;
+        $totalQuantity = 0;
+        // $shipping = 5;
 
         foreach($panierWithDatas as $item)
         {
             $totalItem = $item['product']->getPrice() * $item['quantity'];
             $total += $totalItem;
+            $totalQuantity += $item['quantity'];
         }
 
-        $totalInclShipping = $total + $shipping;
+        // $totalInclShipping = $total + $shipping;
         return $this->render('panier/panier.html.twig', [
             'controller_name' => 'HomeController',
             'items' => $panierWithDatas,
             'total' => $total,
-            'totalInclShipping' => $totalInclShipping,
+            // 'totalInclShipping' => $totalInclShipping,
+            'totalQuantity' => $totalQuantity,
         ]);
     }
     /**
      * @Route("/panier/add/{id}", name="add_panier")
      */
-    public function add($id, SessionInterface $session, RequestStack $requestStack, RouterInterface $router, ProductRepository $productRepository)
+    public function add($id, SessionInterface $session, ProductRepository $productRepository, Request $request)
     {
         $panier = $session->get('panier', []);
         $product = $productRepository->find($id);
-        // $currentPath = $requestStack->getMainRequest()->getBaseUrlReal();
-        // $url = $router->generate($currentPath);
         
         if(!empty($panier[$id])) 
         {
@@ -65,16 +65,36 @@ class CartController extends AbstractController
             {
                 $panier[$id]++;
             } 
-            // else {
-            //     $this->addFlash('error', "Vous ne pouvez pas ajouter au dela du stock disponible");
-            // }
         } else {
             $panier[$id] = 1;
-            // dd($panier[$id]);
         }
         $session->set('panier', $panier);
+        $panierWithDatas = [];
+        foreach($panier as $id => $quantity) 
+        {
+            $panierWithDatas[] = [
+                'product' => $productRepository->find($id),
+                'quantity' => $quantity,
+            ];
+            
+        }
+        $total = 0;
+        $totalQuantity = 0;
+        // $shipping = 5;
+
+        foreach($panierWithDatas as $item)
+        {
+            $totalItem = $item['product']->getPrice() * $item['quantity'];
+            $total += $totalItem;
+            $totalQuantity += $item['quantity'];
+        }
+        if ($request->isXmlHttpRequest()) {
+            return $this->json([
+                'success' => true,
+                'totalQuantity' => $totalQuantity,
+            ]);
+        } 
         return $this->redirectToRoute("app_panier");
-        // return new RedirectResponse($url);
     }
 
     /**

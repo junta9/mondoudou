@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<!-- bootstrap css -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+  integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
+<!-- style css -->
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/order.css') }}">
+{% endblock %}
+
+{% block body %}
+<h2 class="text-center mt-5 fw-bold">Création de la commande</h2>
+
+<div class="card cart-card">
+  <div class="row">
+    <div class="col-12 cart">
+      {# <div class="title">
+        <div class="row">
+          <div class="col">
+            <h4><b>Création de la commande</b></h4>
+          </div>
+        </div>
+      </div> #}
+
+      {% if items | length > 0 %}
+      <div class="d-flex w-100 justify-content-evenly my-3">
+        <div>Produit</div>
+        <div>Qté</div>
+        <div>Prix</div>
+      </div>
+      <div class="panier">
+        {% for item in items %}
+        <div class="row border-top border-bottom">
+          <div class="row d-flex main align-items-center">
+            <div class="col-2"><img class="img-fluid" src="/images/photos/{{ item.photo.imageName }}"></div>
+            <div class="col">
+              <div class="row text-muted">{{ item.product.name }}</div>
+            </div>
+            <div class="col">
+              <span>{{ item.quantity }}</span>
+            </div>
+            <div class="col">&euro; {{ item.product.price }} <a href='{{ path("del_panier", {id: item.product.id}) }}'
+                class="close">&#10005;</a></div>
+          </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>Votre panier est vide</p>
+        {% endif %}
+      </div>
+      {#<div class="back-to-shop"><a href="{{ path("app_home") }}" class="text-muted">Retour</a></div>#}
+    </div>
+    
+  </div>
+  <div class="row h-100">
+    {% if adresses is same as null %}
+    <div class="col" style="margin-top: 100px;">
+      <h5>Vous n'avez pas renseigner d'adresse de livraison, veuillez en ajouter une en appuyant sur le bouton</h5>
+      <div class="my-3 text-center">
+        <a href="{{ path("adresse_new") }}" class="border-0 btn btn-primary w-50">+ Ajouter une nouvelle adresse</a>
+      </div>
+    </div>
+
+    {% else %}
+    {# {{ dump(adresses) }} #}
+    <div class="col-md-6">
+      <h3 class="my-3" style="border-bottom: 1px solid gray">Informations de l'utilisateur</h3>
+      <p><strong>Nom :</strong> {{ adresses[0].lastname }}</p>
+      <p><strong>Prénom :</strong> {{ adresses[0].firstname }}</p>
+      <p><strong>Email :</strong> {{ user.email }}</p>
+      <p><strong>Entreprise :</strong> {{ adresses[0].company }}</p>
+      <p><strong>Téléphone :</strong> {{ adresses[0].phone }}</p>
+    </div>
+    <div class="col-md-6">
+      <h3 class="my-3" style="border-bottom: 1px solid gray">Adresse de livraison</h3>
+      {% for adresse in adresses %}
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="adresse_id" id="{{ adresse.id }}" value="{{ adresse.id }}"
+          required>
+        <label class="form-check-label" for="{{ adresse.id }}">
+          <strong>Nom de l'adresse :</strong> {{ adresse.addressName }}<br>
+          {{ adresse.adresse }}<br>
+          {{ adresse.postalcode }} {{ adresse.city }}<br>
+          {{ adresse.country }}
+        </label>
+      </div>
+      {% endfor %}
+      <div class="my-3">
+        <a href="{{ path("adresse_new") }}" class="border-0 btn btn-primary w-50">+ Ajouter une nouvelle adresse</a>
+      </div>
+    </div>
+    <div class="col-12 summary">
+      <div>
+        <h5><b>Résumé</b></h5>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col text-right my-4" style="padding-left:0;">{{ totalQuantity }} produits</div>
+      </div>
+      <div class="row" style="border-top: 2px solid rgba(0,0,0,.1); padding: 2vh 0;">
+        <div class="col">PRIX TOTAL</div>
+        <div class="col text-right">&euro; {{ total }}</div>
+      </div>
+      <button class="btn"><a class="text-white fs-5 py-2" href="{{ path("order_index") }}">Valider mon
+          panier</a></button>
+    </div>
+    {% endif %}
+  </div>
+</div>
+<style>
+  p {
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  h1 {
+    height: 90vh;
+  }
+
+  .scroll-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .example-wrapper {
+    margin: 1em auto;
+    max-width: 800px;
+    width: 95%;
+    font: 18px/1.5 sans-serif;
+  }
+
+  .example-wrapper code {
+    background: #F5F5F5;
+    padding: 2px 6px;
+  }
+</style>
+
+{% endblock %}

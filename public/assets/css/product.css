@@ -613,13 +613,13 @@ a:hover {
 .buy_bt {
   float: left;
   width: 100%;
+  background-color: #f26522;
+  height: 50px;
 }
 
 .buy_bt a {
   width: 100%;
   font-size: 16px;
-  color: #f26522;
-  background-color: transparent;
   text-align: right;
   font-weight: bold;
 }
@@ -1115,11 +1115,13 @@ input.mail_bt::placeholder {
   background-color: #cecece;
 }
 #add {
-  width: 50%;
+  width: 100%;
   font-size: 16px;
-  background-color: #f26522;
+  color: white!important;
+  background-color: #f26522!important;
   font-weight: bold;
   border: none;
+  align-self: center;
 }
 #buy {
   width: 50%;
@@ -1152,6 +1154,32 @@ input.mail_bt::placeholder {
   }
   h3, h5 {
     font-size: 1rem!important;
+  }
+  #logo_title_2 {
+    display: block!important;
+  }
+  .containt_main {
+    flex-direction: column!important;
+  }
+}
+
+#notification-prod.show {
+  display: flex!important;
+  align-self: center;
+  justify-content: center;
+  position: absolute!important;
+  width: 80%;
+  bottom: 15%;
+  animation: fadeOut 5s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none !important;
   }
 }
 /* product page css end */
