@@ -60,7 +60,7 @@
                                     </li>
                                     {% if is_granted('ROLE_USER') %}
                                     <li>
-                                          <a href="">
+                                          <a href="{{ path("app_profil") }}">
                                           <i class="fa fa-user" aria-hidden="true"></i>
                                           <span id="custom_link" class="padding_10">Compte</span></a>
                                     </li>
@@ -182,8 +182,8 @@
                     {% for peluchePhoto in peluchesPhotos %}
                     <div class="col-lg-4 col-sm-4">
                            <div class="card-index box_main">
-                              <h4 class="shirt_text">{{ peluchePhoto.product.name }}</h4>
-                              <p class="price_text">Prix <span style="color: #262626;">€ {{ peluchePhoto.product.price }}</span></p>
+                              <h4 class="shirt_text pt-2">{{ peluchePhoto.product.name }}</h4>
+                              <p class="price_text">Prix <span style="color: black;font-weight: bold;">€ {{ peluchePhoto.product.price }}</span></p>
                               <div class="tshirt_img"><img src="/images/photos/{{ peluchePhoto.imageName }}" alt="" style="height: 260px"></div>
                               {# message de notifications #}
                               <div id="notification-cat" class="alert alert-success " role="alert" style="display:none;">

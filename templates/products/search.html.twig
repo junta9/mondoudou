@@ -55,7 +55,7 @@
                                     </li>
                                     {% if is_granted('ROLE_USER') %}
                                     <li>
-                                          <a href="">
+                                          <a href="{{ path("app_profil") }}">
                                           <i class="fa fa-user" aria-hidden="true"></i>
                                           <span id="custom_link" class="padding_10">Compte</span></a>
                                     </li>
@@ -172,7 +172,7 @@
                     </div>
                 {% endfor %}                               
 
-                <h2 id='titre_peluche' class='text-center mt-5'>Recherche</h2>
+                <h2 id='titre_peluche' class='text-center my-5'>Recherche</h2>
                {% if photos is empty %}
                   <div class="row w-100 text-center mt-5 search-main">
                   <h5>Nous sommes désolés, aucun produits ne correspond à votre recherche</h5>
@@ -183,7 +183,7 @@
                   {% for photo in photos %}
                   <div class="col-lg-3 col-sm-3">
                            <div class="card-index box_main">
-                              <h4 class="shirt_text">{{ photo.product.name }}</h4>
+                              <h4 class="shirt_text pt-2">{{ photo.product.name }}</h4>
                               <p class="price_text">Prix <span style="color: #262626;">€ {{ photo.product.price }}</span></p>
                               <div class="tshirt_img"><img src="images/photos/{{ photo.imageName }}" alt="" style="height: 250px"></div> 
                               {# message de notifications #}

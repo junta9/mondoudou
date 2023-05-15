@@ -8,9 +8,9 @@ $(function () {
   /* Preloader
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
-  setTimeout(function () {
-    $(".loader_bg").fadeToggle();
-  }, 1500);
+  // setTimeout(function () {
+  //   $(".loader_bg").fadeToggle();
+  // }, 1500);
 
   /* JQuery Menu
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
@@ -360,7 +360,7 @@ $(function () {
             }, 5000);
             const cartItemCount = document.getElementById("cart_items_count");
             cartItemCount.innerHTML = response.totalQuantity;
-			console.log(response.totalQuantity);
+            console.log(response.totalQuantity);
           } else {
             alert("Une erreur est survenue : " + response.message);
           }
