@@ -45,6 +45,7 @@
                                        <a href="{{ path('app_panier') }}">
                                           {% if app.session.get('panier') is not empty %}
                                                 <span id="cart_items_count" class="badge badge-pill badge-danger">{{ app.session.get('panier')|length }}</span>
+                                                {# <span id="cart_items_count" class="badge badge-pill badge-danger"></span> #}
                                           {% endif %}
                                           <i class="fa fa-shopping-cart" aria-hidden="true">
                                           </i>

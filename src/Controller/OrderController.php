@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Adresses;
+use App\Entity\Transporteur;
+use App\Entity\User;
 use App\Form\OrderType;
 use App\Repository\AdressesRepository;
 use App\Repository\PhotosRepository;
@@ -24,9 +26,9 @@ class OrderController extends AbstractController
         {
             return $this->redirectToRoute("app_login");
         }
-
         $user = $this->getUser();
         $adresses = $em->getRepository(Adresses::class)->findBy(['user' => $user]);
+        // $adresses = $adressesRepository->findBy(['user' => $user]);
 
         $panier = $session->get('panier', []);
         $form = $this->createForm(OrderType::class, null, [
@@ -45,7 +47,7 @@ class OrderController extends AbstractController
         }
         $total = 0;
         $totalQuantity = 0;
-        // $shipping = 5;
+        $deliverys = $em->getRepository(Transporteur::class)->findAll();
 
         foreach($panierWithDatas as $item)
         {
@@ -68,6 +70,7 @@ class OrderController extends AbstractController
             'totalQuantity' => $totalQuantity,
             'user' => $user,
             'adresses' => $adresses,
+            'deliverys' => $deliverys,
         ]);
     }
 }

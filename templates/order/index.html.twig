@@ -53,7 +53,7 @@
     
   </div>
   <div class="row h-100">
-    {% if adresses is same as null %}
+    {% if adresses is empty %}
     <div class="col" style="margin-top: 100px;">
       <h5>Vous n'avez pas renseigner d'adresse de livraison, veuillez en ajouter une en appuyant sur le bouton</h5>
       <div class="my-3 text-center">
@@ -64,15 +64,15 @@
     {% else %}
     {# {{ dump(adresses) }} #}
     <div class="col-md-6">
-      <h3 class="my-3" style="border-bottom: 1px solid gray">Informations de l'utilisateur</h3>
-      <p><strong>Nom :</strong> {{ adresses[0].lastname }}</p>
-      <p><strong>Prénom :</strong> {{ adresses[0].firstname }}</p>
-      <p><strong>Email :</strong> {{ user.email }}</p>
-      <p><strong>Entreprise :</strong> {{ adresses[0].company }}</p>
-      <p><strong>Téléphone :</strong> {{ adresses[0].phone }}</p>
+      <h3 class="my-3 text-center" style="border-bottom: 1px solid gray">Informations Client</h3>
+      <p id="infos"><strong>Nom :</strong> {{ adresses[0].lastname }}</p>
+      <p id="infos"><strong>Prénom :</strong> {{ adresses[0].firstname }}</p>
+      <p id="infos"><strong>Email :</strong> {{ user.email }}</p>
+      <p id="infos"><strong>Entreprise :</strong> {{ adresses[0].company }}</p>
+      <p id="infos"><strong>Téléphone :</strong> {{ adresses[0].phone }}</p>
     </div>
     <div class="col-md-6">
-      <h3 class="my-3" style="border-bottom: 1px solid gray">Adresse de livraison</h3>
+      <h3 class="my-3 text-center" style="border-bottom: 1px solid gray">Adresse de livraison</h3>
       {% for adresse in adresses %}
       <div class="form-check">
         <input class="form-check-input" type="radio" name="adresse_id" id="{{ adresse.id }}" value="{{ adresse.id }}"
@@ -85,12 +85,12 @@
         </label>
       </div>
       {% endfor %}
-      <div class="my-3">
-        <a href="{{ path("adresse_new") }}" class="border-0 btn btn-primary w-50">+ Ajouter une nouvelle adresse</a>
+      <div class="my-3 add-add">
+        <a href="{{ path("adresse_new") }}" class="border-0 btn btn-primary w-50" id="add-address">+ Ajouter une nouvelle adresse</a>
       </div>
     </div>
     <div class="col-12 summary">
-      <div>
+      <div class="text-center">
         <h5><b>Résumé</b></h5>
       </div>
       <hr>
@@ -98,17 +98,35 @@
         <div class="col text-right my-4" style="padding-left:0;">{{ totalQuantity }} produits</div>
       </div>
       <div class="row" style="border-top: 2px solid rgba(0,0,0,.1); padding: 2vh 0;">
-        <div class="col">PRIX TOTAL</div>
+        <div class="col">PRIX</div>
         <div class="col text-right">&euro; {{ total }}</div>
       </div>
+      {% for delivery in deliverys %}
+      <div class="row" style="border-top: 2px solid rgba(0,0,0,.1); padding: 2vh 0;">
+        <div class="col">
+          <label class="label-delivery">
+            <input class="input-delivery" type="radio" name="delivery" value="{{ delivery.name }}" required>
+            {{ delivery.name }}
+          </label>
+        </div>
+        <div class="col">{{ delivery.content}}</div>
+        <div class="col text-right">&euro; {{ delivery.price / 100 }}</div>
+      </div>
+      {% endfor %}
+      <div class="row" style="border-top: 2px solid rgba(0,0,0,.1); padding: 2vh 0;">
+        <div class="col">PRIX TOTAL</div>
+        <div class="col text-right" id="total-price">&euro; {{ total }}</div>
+      </div>
       <button class="btn"><a class="text-white fs-5 py-2" href="{{ path("order_index") }}">Valider mon
-          panier</a></button>
+          panier</a>
+      </button>
+      <div class="back-to-shop"><a href="{{ path("app_home") }}" class="border-0 btn btn-dark">Retour</a></div>
     </div>
     {% endif %}
   </div>
 </div>
 <style>
-  p {
+  #infos {
     text-transform: uppercase;
     margin: 0;
   }
@@ -137,5 +155,18 @@
     padding: 2px 6px;
   }
 </style>
+<script>
+  const deliveryInputs = document.querySelectorAll('.input-delivery');
+  const totalPriceElement = document.querySelector('#total-price');
+
+  deliveryInputs.forEach(input => {
+    input.addEventListener('click', (event) => {
+      const deliveryPrice = event.target.closest('.row').querySelector('.col.text-right').textContent.trim().substring(1);
+      const totalPrice = parseFloat(deliveryPrice) + parseFloat({{ total }});
+      totalPriceElement.innerHTML = `&euro; ${totalPrice.toFixed(2)}`;
+    });
+  });
+</script>
+
 
 {% endblock %}

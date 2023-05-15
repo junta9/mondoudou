@@ -129,7 +129,7 @@
 
 @media (min-width: 992px) and (max-width: 1199px) {
     .banner_bg_main {
-        background-size: 100% 100%;
+        /* background-size: 100% 100%; */
     }
     .tshirt_img {
         margin: 20px 0px;
@@ -174,7 +174,7 @@
 
 @media (min-width: 768px) and (max-width: 991px) {
     .banner_bg_main {
-        background-size: 100% 100%;
+        /* background-size: 100% 100%; */
     }
     .dropdown {
         display: none;
@@ -225,10 +225,10 @@
 
 @media (min-width: 576px) and (max-width: 767px) {
     .banner_bg_main {
-        background-size: 100% 100%;
+        /* background-size: 100% 100%; */
     }
     .header_section_top {
-        display: none;
+        /* display: none; */
     }
     .containt_main {
         display: flex;
@@ -357,7 +357,7 @@
         background-size: cover;
     }
     .header_section_top {
-        display: none;
+        /* display: none; */
     }
     
     .containt_main {
@@ -468,11 +468,16 @@
 }
 @media screen and (max-width: 765px) {
     .header_section.headerTwo {
-        display: block!important;
+        /* display: block!important; */
     }
     .containt_main {
         display: flex;
         flex-wrap: wrap-reverse;
         align-items: center;
+    }
+}
+@media screen and (max-width: 320px) {
+    .banner_bg_main {
+        background-image: none;
     }
 }

@@ -92,9 +92,9 @@ select{
 input{
   border: 1px solid rgba(0, 0, 0, 0.137);
   padding: 1vh;
-  margin-bottom: 4vh;
+  /* margin-bottom: 4vh; */
   outline: none;
-  width: 100%;
+  /* width: 100%; */
   background-color: rgb(247, 247, 247);
 }
 input:focus::-webkit-input-placeholder
@@ -181,11 +181,25 @@ a:hover{
   max-height: 85vh;
   overflow-y: hidden;
 } */
-.summary {
-  padding-top: 100px;
-}
+
 .btn-next {
   background-color: black!important;
+}
+.label-delivery {
+  display: inline-flex;
+}
+.input-delivery {
+  /* margin-top: 5px; */
+  margin-right: 5px;
+}
+
+@media screen and (max-width:426px){
+    #add-address {
+      width: 75%!important;
+    }
+    .add-add {
+      text-align: center;
+    }
 }
 
 /* copyright section end */

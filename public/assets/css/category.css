@@ -574,8 +574,8 @@ a:hover {
 .box_main {
   width: 100%;
   background-color: #ffffff;
-  height: auto;
-  padding: 20px;
+  height: 580px;
+  padding: 0 5px;
   box-shadow: 0px 0 30px 10px #f0f0f0;
   margin-bottom: 20px;
 }
@@ -602,6 +602,9 @@ a:hover {
   text-align: center;
   margin: 50px 0px;
   min-height: 370px;
+}
+.tshirt_img img {
+  object-fit: cover;
 }
 
 .btn_main {
