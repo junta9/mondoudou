@@ -212,15 +212,21 @@ button {
 
 /* banner bg main start */
 
-/* .banner_bg_main {
+.banner_bg_main {
   width: 100%;
   float: left;
-  background-image: url(../images/banner-doudou.jpg);
-  height: 80vh;
+  /* background-image: url(../images/banner-doudou.jpg); */
+  /* height: 80vh; */
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: 50%;
-} */
+}
+@media screen and (max-width:768px) {
+  .banner_bg_main {
+  height: 30vh;
+
+  }
+}
 
 /* banner bg main end */
 

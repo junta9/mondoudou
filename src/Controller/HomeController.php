@@ -9,6 +9,7 @@ use App\Repository\PhotosRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -89,7 +90,13 @@ class HomeController extends AbstractController
     /**
      * @Route("category/{id}", name="app_category")
      */
-    public function category($id, ManagerRegistry $doctrine,EntityManagerInterface $em)
+    public function category(
+        $id, 
+        ManagerRegistry $doctrine
+        ,EntityManagerInterface $em,
+        PaginatorInterface $paginator,
+        Request $request
+        )
     {
         $category = $doctrine->getRepository(Category::class)->find($id);
         $categoryName = $category->getName();
@@ -109,6 +116,11 @@ class HomeController extends AbstractController
                 // ajoutez d'autres champs de l'entité Photo ici si nécessaire
             ];
         }
+        $peluchesPhotos = $paginator->paginate(
+            $peluchesPhotos, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            6 /*limit per page*/
+        );
         $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
         $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
         return $this->render("products/categorie.html.twig", [

@@ -223,7 +223,13 @@ button {
 }
 @media screen and (max-width:768px) {
   .banner_bg_main {
-  height: 50vh;
+  height: 70vh;
+
+  }
+}
+@media screen and (max-width:425px) {
+  .banner_bg_main {
+  height: 30vh;
 
   }
 }

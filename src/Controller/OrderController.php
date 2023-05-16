@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Adresses;
+use App\Entity\Category;
 use App\Entity\Transporteur;
 use App\Entity\User;
 use App\Form\OrderType;
@@ -61,6 +62,9 @@ class OrderController extends AbstractController
 
         // var_dump($adresse);
         // die();
+        $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
+        $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
+
         return $this->render('order/index.html.twig', [
             'controller_name' => 'OrderController',
             'form' => $form->createView(),
@@ -71,6 +75,9 @@ class OrderController extends AbstractController
             'user' => $user,
             'adresses' => $adresses,
             'deliverys' => $deliverys,
+            'peluchesCategory' => $peluchesCategory,
+            'doudousCategory' => $doudousCategory,
+            
         ]);
     }
 }

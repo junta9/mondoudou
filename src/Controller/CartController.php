@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Repository\PhotosRepository;
 use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +20,7 @@ class CartController extends AbstractController
     /**
      * @Route("/panier", name="app_panier")
      */
-    public function index(SessionInterface $session, ProductRepository $productRepository, PhotosRepository $photosRepository)
+    public function index(SessionInterface $session, ProductRepository $productRepository, PhotosRepository $photosRepository, EntityManagerInterface $em)
     {
         $panier = $session->get('panier', []);
         $panierWithDatas = [];
@@ -43,12 +45,17 @@ class CartController extends AbstractController
         }
 
         // $totalInclShipping = $total + $shipping;
+
+        $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
+        $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
         return $this->render('panier/panier.html.twig', [
             'controller_name' => 'HomeController',
             'items' => $panierWithDatas,
             'total' => $total,
             // 'totalInclShipping' => $totalInclShipping,
             'totalQuantity' => $totalQuantity,
+            'peluchesCategory' => $peluchesCategory,
+            'doudousCategory' => $doudousCategory,
         ]);
     }
     /**

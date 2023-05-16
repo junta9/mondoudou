@@ -178,7 +178,7 @@
                 {% endfor %}                               
 
                 <h2 id='titre_peluche' class='text-center mt-5'>{{ category.name}}s</h2>
-                <div class="row row-cols-1 row-cols-md-3 row-cols-xl-4 justify-content-center mt-5">
+                <div class="row row-cols-1 row-cols-md-3 row-cols-xl-3 justify-content-center mt-5">
                     {% for peluchePhoto in peluchesPhotos %}
                     <div class="col-lg-4 col-sm-4">
                            <div class="card-index box_main">
@@ -198,9 +198,11 @@
                            </div>
                         </div>
                     {% endfor %}
-
-                   
-                </div>
+               </div>
+            </div>
+            <div class="d-flex justify-content-center">
+               {% do peluchesPhotos.setPageRange(2) %}
+               {{ knp_pagination_render(peluchesPhotos, 'pagination.html.twig') }}
             </div>
         </section>
         <script>

@@ -80,6 +80,7 @@ class ResetPasswordController extends AbstractController
         if (null === ($resetToken = $this->getTokenObjectFromSession())) {
             $resetToken = $this->resetPasswordHelper->generateFakeResetToken();
         }
+        // dd($resetToken);
 
         $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
         $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
@@ -167,6 +168,7 @@ class ResetPasswordController extends AbstractController
 
         try {
             $resetToken = $this->resetPasswordHelper->generateResetToken($user);
+            // dd($resetToken);
         } catch (ResetPasswordExceptionInterface $e) {
             // If you want to tell the user why a reset email was not sent, uncomment
             // the lines below and change the redirect to 'app_forgot_password_request'.
