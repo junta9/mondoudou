@@ -1,0 +1,30 @@
+<div id="popup-banner" class="popup-banner bottom text-center p-5">
+	<p>
+		Ce site utilise des cookies. En continuant à naviguer sur ce site, vous acceptez l'utilisation des cookies.
+		<a href="" class="">Gérer les préférences</a>
+	</p>
+	<button class="btn btn-primary" id="accept-cookies">Accepter</button>
+</div>
+
+<style>
+	.popup-banner.bottom {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+        height:200px;
+        background-color: black;
+        color: white;
+        z-index: 1000;
+		/* Autres styles CSS que vous souhaitez appliquer */
+	}
+    a {
+        color: blue;
+    }
+</style>
+<script>
+	// Attacher un gestionnaire d'événements pour masquer la bannière lorsque l'utilisateur clique sur le bouton "Accepter"
+document.getElementById('accept-cookies').addEventListener('click', function () {
+document.getElementById('popup-banner').style.display = 'none';
+});
+</script>

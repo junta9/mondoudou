@@ -70,6 +70,13 @@
         </div> -->
         <!-- footer section end -->
         <!-- copyright section start -->
+        {% block consent_banner %}
+            {% if not app.request.cookies.has('consent') %}
+                {% include 'consent_banner.html.twig' %}
+            {% endif %}
+        {% endblock %}
+
+
         <div class="copyright_section">
             <div class="container">
                 <p class="copyright_text">© 2023 All Rights Reserved. Design by Chou VANG</p>
@@ -171,6 +178,13 @@
                 }
                 return true;
             }
+
+            // Attacher un gestionnaire d'événements pour masquer la bannière lorsque l'utilisateur clique sur le bouton "Accepter"
+            document.getElementById('accept-cookies').addEventListener('click', function() {
+                document.getElementById('popup-banner').style.display = 'none';
+            });
+
+            
                 
         </script>
         {% endblock %}
