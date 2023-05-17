@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block body %}
-<div class="card cart-card">
+<div class="card cart-card mt-5">
   <div class="row">
       <div class="col-md-8 cart">
           <div class="title">
@@ -29,22 +29,25 @@
                     <div>Prix</div>
                   </div>
           {% for item in items %}  
-          <div class="row border-top border-bottom">
-              <div class="row d-flex main align-items-center">
-                  <div class="col-2"><img class="img-fluid" src="/images/photos/{{ item.photo.imageName }}"></div>
-                  <div class="col">
-                  {# {{ dump(item) }} #}
-                      <div class="row text-muted">{{ item.product.name }}</div>
-                  </div>
-                  <div class="col">
-                      {# <a href="#">-</a> #}
-                      <span>{{ item.quantity }}</span>
-                      {# <a href="#">+</a> #}
-                  </div>
-                  <div class="col">&euro; {{ item.product.price }} <a href='{{ path("del_panier", {id: item.product.id}) }}' class="close">&#10005;</a></div>
-              </div>
-          </div>
+            <div class="row border-top border-bottom">
+                <div class="row d-flex main align-items-center">
+                    <div class="col-2"><img class="img-fluid" src="/images/photos/{{ item.photo.imageName }}"></div>
+                    <div class="col">
+                    {# {{ dump(item) }} #}
+                        <div class="row text-muted">{{ item.product.name }}</div>
+                    </div>
+                    <div class="col">
+                        {# <a href="#">-</a> #}
+                        <span>{{ item.quantity }}</span>
+                        {# <a href="#">+</a> #}
+                    </div>
+                    <div class="col">&euro; {{ item.product.price }} <a href='{{ path("del_panier", {id: item.product.id}) }}' class="close"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a></div>
+                </div>
+            </div>
           {% endfor %}
+            <div class="row">
+                <span class="text-end px-2 my-2">Vider le panier<a href='{{ path('del_panier_all') }}'><i class="fa fa-trash-o fa-2x ms-3" aria-hidden="true"></i></a></span>
+            </div>
           {% else %}
           <p>Votre panier est vide</p>
           {% endif %}
@@ -67,6 +70,8 @@
   </div>
   
 </div>
+{% endblock %}
+{% block sticky_cart %}
 {% endblock %}
 {% block javascriptsBottom %}
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

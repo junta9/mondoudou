@@ -75,6 +75,17 @@
                 {% include 'consent_banner.html.twig' %}
             {% endif %}
         {% endblock %}
+        {% block sticky_cart %}
+        <a id="sticky-card" href="{{ path('app_panier') }}">
+            {% if app.session.get('panier') is not empty %}
+                <span id="cart_items_count" class="badge badge-pill badge-danger">{{ app.session.get('panier')|length }}</span>
+                {# <span id="cart_items_count" class="badge badge-pill badge-danger"></span> #}
+            <i class="fa fa-shopping-cart" aria-hidden="true">
+            </i>
+            {% endif %}
+            {# <span id="custom_link" class="padding_10">Panier</span> #}
+        </a>
+        {% endblock %}
 
 
         <div class="copyright_section">
@@ -136,6 +147,44 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="cookieModal" tabindex="-1" role="dialog" aria-labelledby="cookieModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cookieModalLabel">Préférences de cookies</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Contenu de la fenêtre modale -->
+                        <p>Personnalisez vos préférences de cookies :</p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="analyticsCheckbox" checked>
+                            <label class="form-check-label" for="analyticsCheckbox">
+                                Cookies d'analyse
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="marketingCheckbox" checked>
+                            <label class="form-check-label" for="marketingCheckbox">
+                                Cookies de marketing
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="functionalCheckbox" checked>
+                            <label class="form-check-label" for="functionalCheckbox">
+                                Cookies fonctionnels
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-primary" id="savePreferencesButton">Enregistrer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% endblock %}
 
         {% block javascriptsBottom %}
@@ -184,6 +233,18 @@
                 document.getElementById('popup-banner').style.display = 'none';
             });
 
+            document.getElementById('savePreferencesButton').addEventListener('click', function() {
+                // Récupérer les préférences de cookies
+                var analyticsPreference = document.getElementById('analyticsCheckbox').checked;
+                var marketingPreference = document.getElementById('marketingCheckbox').checked;
+                var functionalPreference = document.getElementById('functionalCheckbox').checked;
+
+                // Effectuer une requête AJAX ou tout autre traitement nécessaire pour enregistrer les préférences
+                // Vous pouvez envoyer les préférences au serveur pour les enregistrer dans une base de données, par exemple
+
+                // Fermer la fenêtre modale
+                $('#cookieModal').modal('hide');
+            });
             
                 
         </script>

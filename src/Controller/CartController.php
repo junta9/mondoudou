@@ -24,20 +24,19 @@ class CartController extends AbstractController
     {
         $panier = $session->get('panier', []);
         $panierWithDatas = [];
-        foreach($panier as $id => $quantity) 
+        foreach ($panier as $id => $quantity)
         {
             $panierWithDatas[] = [
                 'product' => $productRepository->find($id),
                 'photo' => $photosRepository->findOneBy(['product' => $id]),
                 'quantity' => $quantity,
             ];
-            
         }
         $total = 0;
         $totalQuantity = 0;
         // $shipping = 5;
 
-        foreach($panierWithDatas as $item)
+        foreach ($panierWithDatas as $item)
         {
             $totalItem = $item['product']->getPrice() * $item['quantity'];
             $total += $totalItem;
@@ -65,42 +64,44 @@ class CartController extends AbstractController
     {
         $panier = $session->get('panier', []);
         $product = $productRepository->find($id);
-        
-        if(!empty($panier[$id])) 
+
+        if (!empty($panier[$id]))
         {
-            if($panier[$id] < $product->getQuantity())
+            if ($panier[$id] < $product->getQuantity())
             {
                 $panier[$id]++;
-            } 
-        } else {
+            }
+        }
+        else
+        {
             $panier[$id] = 1;
         }
         $session->set('panier', $panier);
         $panierWithDatas = [];
-        foreach($panier as $id => $quantity) 
+        foreach ($panier as $id => $quantity)
         {
             $panierWithDatas[] = [
                 'product' => $productRepository->find($id),
                 'quantity' => $quantity,
             ];
-            
         }
         $total = 0;
         $totalQuantity = 0;
         // $shipping = 5;
 
-        foreach($panierWithDatas as $item)
+        foreach ($panierWithDatas as $item)
         {
             $totalItem = $item['product']->getPrice() * $item['quantity'];
             $total += $totalItem;
             $totalQuantity += $item['quantity'];
         }
-        if ($request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest())
+        {
             return $this->json([
                 'success' => true,
                 'totalQuantity' => $totalQuantity,
             ]);
-        } 
+        }
         return $this->redirectToRoute("app_panier");
     }
 
@@ -111,7 +112,7 @@ class CartController extends AbstractController
     {
         $panier = $session->get('panier', []);
 
-        if(!empty($panier[$id]))
+        if (!empty($panier[$id]))
         {
             unset($panier[$id]);
         }
@@ -120,6 +121,19 @@ class CartController extends AbstractController
         return $this->redirectToRoute("app_panier");
     }
     
-    // return $this->redirectToRoute('app_panier');
+    /**
+     * @Route("/panier/remove", name="del_panier_all")
+     */
+    public function removeAll(SessionInterface $session)
+    {
+        $panier = $session->get('panier', []);
+        if (!empty($panier))
+        {
+            $panier = [];
+        }
+        $session->set('panier', $panier);
+
+        return $this->redirectToRoute("app_panier");
+    }
 
 }

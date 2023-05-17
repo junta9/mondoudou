@@ -12,6 +12,7 @@
 @import url(jquery.fancybox.min.css);
 @import url(jquery-ui.css);
 @import url(nice-select.css);
+@import url('https://fonts.googleapis.com/css2?family=Butterfly+Kids&display=swap');
 
 /*--------------------------------------------------------------------- skeleton ---------------------------------------------------------------------*/
 
@@ -293,11 +294,12 @@ button {
 
 #logo_title {
   /* color: #af75b1; */
+  font-family: 'Butterfly Kids', cursive;
   color: #5d3d29;
   /* color: #f26522; */
   font-size: 2.5em;
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: bolder;
 }
 
 /* logo section end */
@@ -1146,6 +1148,19 @@ input.mail_bt::placeholder {
     opacity: 0;
     display: none !important;
   }
+}
+#sticky-card {
+  position: fixed;
+  right: 5%;
+  bottom: 6%;
+  font-size: 50px;
+  color: #f26522;
+}
+#sticky-card #cart_items_count {
+  font-size: 1rem;
+  position: absolute;
+  transform: translateX(50%);
+
 }
 
 /* product page css end */

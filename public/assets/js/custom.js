@@ -338,37 +338,37 @@ $(function () {
   // 	return true;
   // }
 
-  const addButtons = document.querySelectorAll("#add");
-  addButtons.forEach((addButton) => {
-    addButton.addEventListener("click", (event) => {
-      event.preventDefault();
-      const productId = event.target.getAttribute("data-id");
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", "/panier/add/" + productId);
-      xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          const response = JSON.parse(xhr.responseText);
-          if (response.success) {
-            const notif =
-              event.target.parentElement.parentElement.parentElement
-                .children[3];
-            console.log(notif);
-            notif.classList.add("show");
-            setTimeout(function () {
-              notif.classList.remove("show");
-            }, 5000);
-            const cartItemCount = document.getElementById("cart_items_count");
-            cartItemCount.innerHTML = response.totalQuantity;
-            console.log(response.totalQuantity);
-          } else {
-            alert("Une erreur est survenue : " + response.message);
-          }
-        } else {
-          alert("Une erreur est survenue");
-        }
-      };
-      xhr.send();
-    });
-  });
+  // const addButtons = document.querySelectorAll("#add");
+  // addButtons.forEach((addButton) => {
+  //   addButton.addEventListener("click", (event) => {
+  //     event.preventDefault();
+  //     const productId = event.target.getAttribute("data-id");
+  //     const xhr = new XMLHttpRequest();
+  //     xhr.open("POST", "/panier/add/" + productId);
+  //     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+  //     xhr.onload = function () {
+  //       if (xhr.status === 200) {
+  //         const response = JSON.parse(xhr.responseText);
+  //         if (response.success) {
+  //           const notif =
+  //             event.target.parentElement.parentElement.parentElement
+  //               .children[3];
+  //           console.log(notif);
+  //           notif.classList.add("show");
+  //           setTimeout(function () {
+  //             notif.classList.remove("show");
+  //           }, 5000);
+  //           const cartItemCount = document.getElementById("cart_items_count");
+  //           cartItemCount.innerHTML = response.totalQuantity;
+  //           console.log(response.totalQuantity);
+  //         } else {
+  //           alert("Une erreur est survenue : " + response.message);
+  //         }
+  //       } else {
+  //         alert("Une erreur est survenue");
+  //       }
+  //     };
+  //     xhr.send();
+  //   });
+  // });
 });
