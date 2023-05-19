@@ -1,0 +1,242 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+   <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style-2.css') }}">
+{% endblock %}
+{% block header %}
+<!-- banner bg main start -->
+   <div class="banner_bg_main">
+      <!-- header top section start -->
+      <div class="container">
+         <div class="header_section_top">
+            <div class="row">
+               <div class="col-sm-12">
+                  
+                  <div class="logo_section">
+                     <div class="container">
+                        <div class="row">
+                           <div class="col-sm-12">
+                              <div class="logo"><a href="{{ path("app_home") }}" id="logo_title">Mondoudou</a></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="header_section">
+                     <div class="container">
+                        <div class="containt_main">
+                           
+                           <span class="toggle_icon" onclick="openNav()"><img src="{{ asset('assets/images/toggle-icon.png') }}" alt=""></span>
+                          
+                           <div class="main">
+                              <!-- Another variation with a button -->
+                              <div class="input-group">
+                                 <form class="d-flex w-100 search-form" method="get" action="{{ path('app_search') }}" onsubmit="return validateSearchForm()">
+                                    <input type="text" class="form-control" placeholder="Rechercher un produit" name="searchTerm" id="searchTerm">
+                                    <div class="input-group-append">
+                                       <button class="btn btn-secondary" type="submit" style="background-color: #5D3D29; border: none;">
+                                       <i class="fa fa-search"></i>
+                                       </button>
+                                    </div>
+                                 </form>
+                              </div>
+                              {# <div class="logo"><a href="{{ path("app_home") }}" id="logo_title">Mondoudou</a></div> #}
+
+                           </div>
+                           <div class="header_box">
+                              <div class="login_menu">
+                                 <ul>
+                                    <li>
+                                       <a href="{{ path('app_panier') }}">
+                                          {% if app.session.get('panier') is not empty %}
+                                                <span id="cart_items_count" class="badge badge-pill badge-danger">{{ app.session.get('panier')|length }}</span>
+                                                {# <span id="cart_items_count" class="badge badge-pill badge-danger"></span> #}
+                                          {% endif %}
+                                          <i class="fa fa-shopping-cart" aria-hidden="true">
+                                          </i>
+                                          <span id="custom_link" class="padding_10">Panier</span>
+                                       </a>
+                                    </li>
+                                    {# <li>
+                                          <a href="{{ path('app_panier') }}">
+                                          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                          <span id="custom_link" class="padding_10">Panier</span></a>
+                                    </li> #}
+                                    {% if is_granted('ROLE_USER') %}
+                                    <li>
+                                          <a href="{{ path("app_profil") }}">
+                                          <i class="fa fa-user" aria-hidden="true"></i>
+                                          <span id="custom_link" class="padding_10">Compte</span></a>
+                                    </li>
+                                    <li>
+                                          <a href="{{ path('app_logout') }}">
+                                          <i class="fa fa-user" aria-hidden="true"></i>
+                                          <span id="custom_link" class="padding_10">Deconnexion</span></a>
+                                    </li>
+                                    {% else %}
+                                    <li>
+                                          <a href="{{ path('app_login') }}">
+                                          <i class="fa fa-user" aria-hidden="true"></i>
+                                          <span id="custom_link" class="padding_10">Se connecter</span></a>
+                                    </li>
+                                    {% endif %}
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="{{ path("app_home") }}">Home</a>
+            <a href="{{ path("app_category", {id: peluchesCategory.id}) }}">Peluches</a>
+            <a href="{{ path("app_category", {id: doudousCategory.id}) }}">Doudous</a>
+            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#joinModal1">Contact</a>
+         </div>
+
+      </div>
+   </div>
+   
+{% endblock %}
+{% block body %}
+<section class="container-fluid my-5 p-1">
+	<div class="mt-5 text-uppercase fw-bold">
+		<h1 class="text-center">Politique des cookies</h1>
+	</div>
+	<div>
+		<p>
+			<strong class="fw-bold">INFORMATIONS GÉNÉRALES</strong> <br><br>
+			Ce site internet utilise des cookies (témoins) de Google Analytics et de Facebook. Un cookie est un petit
+			texte stocké automatiquement dans votre navigateur par un site web lors de votre visite. Ces cookies
+			permettent à Asmae – Association Sœur Emmanuelle de conserver des informations sur votre navigation. Ils
+			aident aussi à comprendre le comportement des utilisateurs du site, permettant ainsi de rendre votre
+			expérience et votre navigation sur le site plus agréables. Les cookies ne peuvent conserver que du texte,
+			qui est toujours confidentiel et bien souvent crypté. Asmae – Association Sœur Emmanuelle ne conserve pas de
+			données personnelles dans un cookie.
+
+			<br><br><strong class="fw-bold">QU’EST-CE QUE LES COOKIES ?</strong> <br><br>
+			Les cookies sont des petits fichiers texte générés par les sites internet que vous visitez, et qui
+			permettent de conserver des données qui peuvent être utiles par la suite. Ces données permettent de
+			conserver vos informations entre les pages, mais aussi d’analyser la manière dont vous interagissez avec le
+			site.
+
+			Les cookies sont sécurisés, ils ne peuvent que stocker les informations qui sont mises à disposition par le
+			navigateur, informations que l’utilisateur aura préalablement entré dans le navigateur ou qui sont incluses
+			dans les demandes de page. Ils ne peuvent pas exécuter de code et ni être utilisés pour accéder à votre
+			ordinateur. Si un site Web crypte des informations contenues dans un cookie, seul ce site pourra lire ces
+			informations.
+
+			Il y a deux différents types de cookies dont les utilisations et le contenu sont différents : temporaires et
+			persistants.
+
+			Les cookies temporaires contiennent des informations qui sont utilisées au sein de votre session de
+			navigation. Ces cookies sont automatiquement effacés lorsque vous fermez votre navigateur. Rien n’est
+			conservé sur votre ordinateur une fois votre navigation terminée. Les cookies persistants servent à stocker
+			des informations qui sont utilisées entre les visites. Ces données permettent aux sites de reconnaître que
+			vous êtes un visiteur récurrent, et s’adaptent en conséquence.
+
+			<br><br><strong class="fw-bold">POURQUOI UTILISER DES COOKIES ?</strong> <br><br>
+			Les cookies sont utilisés par le site pour garder des informations sur votre session pendant que vous
+			naviguez sur le site, garder des détails de votre navigation et vérifier si vous êtes connecté.
+
+			<br><br><strong class="fw-bold">DESACTIVATION ET SUPPRESSION DES COOKIES ?</strong> <br><br>
+			Tous les navigateurs Web vous permettent de limiter les comportements des cookies ou de les désactiver dans
+			les paramètres ou les options du navigateur. Les étapes à suivre sont différentes pour chaque navigateur.
+			Grâce à votre navigateur, vous pouvez aussi consulter les cookies présents sur votre ordinateur et les
+			supprimer.
+
+			<br><br><strong class="fw-bold">Comment les désactiver ?</strong> <br><br>
+
+			L’internaute peut à tout moment décider de désactiver un ou plusieurs cookies de manière à arrêter le suivi,
+			pour cela il pourra décider de configurer son navigateur d’une manière personnalisée en utilisant les
+			procédures préconisées (Navigateur puis Préférences).
+
+			<br><br><strong class="fw-bold">Principaux navigateurs :</strong>
+
+			<br><br><strong class="fw-bold">Internet Explorer®</strong><br><br>
+
+			Pour supprimer les cookies déjà déposés dans votre terminal :
+
+			Dans Internet Explorer®, cliquez sur Outils et sélectionnez Options Internet. Sélectionnez Historique de
+			navigation, puis sous le choix Paramètres, cliquez sur Afficher les fichiers puis Supprimez les fichiers.
+
+			Pour refuser le dépôt de nouveaux cookies :
+
+			Dans Internet Explorer®, cliquez sur Outils et sélectionnez Options Internet. Sélectionnez Confidentialité,
+			puis Paramètres et déplacez le curseur afin d’obtenir le niveau de protection souhaité.
+
+			Pour plus d’informations, consultez la page web suivante : <a
+				href="https://support.microsoft.com/fr-fr/windows/supprimer-et-gérer-les-cookies-168dab11-0753-043d-7c16-ede5947fc64d">https://support.microsoft.com/fr-fr/windows/supprimer-et-gérer-les-cookies-168dab11-0753-043d-7c16-ede5947fc64d</a>
+
+
+			<br><br><strong class="fw-bold">Safari®</strong><br><br>
+
+			Pour supprimer les cookies déjà déposés dans votre terminal :
+
+			Dans votre navigateur cliquez sur le menu Safari puis sélectionnez Réinitialiser Safari. Sélectionnez
+			ensuite Vider le cache et Supprimer tous les cookies. Cliquez sur Réinitialiser.
+
+			Pour refuser le dépôt de nouveaux cookies :
+
+			Dans votre navigateur, choisissez le menu Préférences puis, dans le volet Confidentialité, choisissez de
+			bloquer les cookies.
+
+			Pour plus d’informations, consultez la page web suivante : <a
+				href="http://www.apple.com/legal/privacy/fr-ww/cookies/">http://www.apple.com/legal/privacy/fr-ww/cookies/</a>
+
+			<br><br><strong class="fw-bold">Google Chrome®</strong><br><br>
+
+			Pour supprimer les cookies déjà déposés dans votre terminal :
+
+			Cliquez sur le menu dans la barre d’outils et sélectionnez Paramètres puis Afficher les paramètres avancés.
+			Dans Confidentialité, cliquez sur Paramètres de contenu.
+
+			Dans Cookies, sélectionnez Cookies et données de site. Pour supprimer tous les cookies, cliquez sur Tout
+			supprimer.
+
+			Pour refuser le dépôt de nouveaux cookies :
+
+			Cliquez sur le menu dans la barre d’outils, sélectionnez Paramètres puis Afficher les paramètres avancés.
+			Dans la section Confidentialité, cliquez sur Paramètres de contenu. Dans Cookies, choisissez le niveau de
+			protection souhaité.
+
+			Pour plus d’informations, consultez la page web suivante : <a
+				href="http://support.google.com/chrome/bin/answer.py?hl=fr&hlrm=en&answer=95647">http://support.google.com/chrome/bin/answer.py?hl=fr&hlrm=en&answer=95647</a>
+
+
+			<br><br><strong class="fw-bold">Mozilla Firefox®</strong><br><br>
+
+			Pour supprimer les cookies déjà déposés dans votre terminal :
+
+			En haut de la fenêtre de votre navigateur, cliquez sur Outils, puis sur Options, et sélectionnez Préférences
+			puis Vie privée. Dans Historique et Règles de conservation, sélectionnez Utiliser les paramètres
+			personnalisés pour l’historique.
+
+			Cliquez sur Afficher les cookies et dans la zone Rechercher, saisissez le nom du site dont vous voulez
+			supprimer les cookies puis sélectionnez les cookies que vous souhaitez supprimer et supprimez-les.
+
+			Pour refuser le dépôt de cookies pour l’avenir :
+
+			En haut de la fenêtre de votre navigateur, cliquez sur Outils, puis sur Options, et sélectionnez Préférences
+			puis Vie privée. Dans Historique et Règles de conservation, sélectionnez Utiliser les paramètres
+			personnalisés pour l’historique.
+
+			Dans le menu Firefox utilise des paramètres personnalisés pour l’historique, cochez la case Accepter les
+			cookies pour activer les cookies et décochez-la pour les désactiver.
+
+			Pour plus d’informations, consultez la page web suivante : <a
+				href="https://support.mozilla.org/fr/kb/protection-renforcee-contre-pistage-firefox-ordinateur">https://support.mozilla.org/fr/kb/protection-renforcee-contre-pistage-firefox-ordinateur</a>
+
+
+			<br><br><strong class="fw-bold">Pour Opéra®</strong><br><br>
+
+			Choisissez le menu Fichier puis Préférences. Choisissez Vie Privée.
+
+			Pour plus d’informations, consultez la page web suivante : <a
+				href="http://help.opera.com/Windows/10.20/fr/cookies.html">http://help.opera.com/Windows/10.20/fr/cookies.html</a>
+
+		</p>
+	</div>
+</section>
+{% endblock %}

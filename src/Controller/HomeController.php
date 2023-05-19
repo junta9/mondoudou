@@ -161,5 +161,19 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("politique_cookie", name="politique_cookie")
+     */
+    public function viewPoliticCookies(EntityManagerInterface $em)
+    {
+        $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
+        $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
+        return $this->render('politique-cookies.html.twig', [
+            'controller_name' => 'HomeController',
+            'peluchesCategory' => $peluchesCategory,
+            'doudousCategory' => $doudousCategory,
+        ]);
+    }
+
 
 }

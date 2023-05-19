@@ -28,7 +28,7 @@ html {
 
 body {
   color: #666666;
-  background-color: #f1edea;
+  /* background-color: #f1edea; */
   font-size: 14px;
   line-height: 1.80857;
   font-weight: normal;
@@ -213,7 +213,7 @@ button {
 
 /* banner bg main start */
 
-.banner_bg_main {
+/* .banner_bg_main {
   width: 100%;
   float: left;
   background-image: url(../images/banner-doudou.jpg);
@@ -221,7 +221,7 @@ button {
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: 50%;
-}
+} */
 @media screen and (max-width:768px) {
   .banner_bg_main {
   height: 70vh;
