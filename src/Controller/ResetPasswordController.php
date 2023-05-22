@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\User;
 use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
+use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,7 +43,7 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("", name="app_forgot_password_request")
      */
-    public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator, EntityManagerInterface $em): Response
+    public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator, EntityManagerInterface $em, MailerService $mailerService): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
         $form->handleRequest($request);
@@ -50,6 +51,8 @@ class ResetPasswordController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($email){
+
+                // $mailerService->sendEmail($email, null);
                 return $this->processSendingPasswordResetEmail(
                     $form->get('email')->getData(),
                     $mailer,

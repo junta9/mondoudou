@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Messages;
+use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,7 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact", name="app_contact")
      */
-    public function handleFormSubmission(Request $request, EntityManagerInterface $em): Response
+    public function handleFormSubmission(Request $request, EntityManagerInterface $em, MailerService $mailerService): Response
     {
         if ($request->isMethod('POST')) {
             $name = $request->request->get('name');
@@ -37,6 +38,9 @@ class ContactController extends AbstractController
 
                 $em->persist($message);
                 $em->flush();
+
+                $mailerService->sendEmail($email, $content);
+
             }
 
             // $emailMessage = (new \Swift_Message('Nouveau message de contact'))
