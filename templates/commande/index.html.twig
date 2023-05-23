@@ -1,0 +1,19 @@
+
+{% extends 'base.html.twig' %}
+{% block body %}
+
+Paiement {{ id_session }}
+    <script>
+        (function() {
+            const stripe = Stripe('pk_test_51N7BLTLSTvAVXmvA4fHBz52KcVIkGRxwfUuxPVSEpGg0UqMnuTHo0LPpjFx2h1Ew412gbqpqwKI9YMsSemWhP7Lx00bJhQVYWX');
+            stripe.redirectToCheckout({
+                sessionId: "{{ id_session }}"
+            });
+        })(); 
+    
+    
+
+    </script>
+{% endblock %}
+{% block footer %}
+{% endblock %}
