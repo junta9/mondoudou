@@ -1,0 +1,4 @@
+orange : #f26522
+marron: #5d3d29
+rose pastel: f1e8e5
+gris: #cecece
