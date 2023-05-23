@@ -8,6 +8,8 @@ use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
 use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Null_;
+use phpDocumentor\Reflection\Types\Nullable;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -43,16 +45,16 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("", name="app_forgot_password_request")
      */
-    public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator, EntityManagerInterface $em, MailerService $mailerService): Response
+    public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator, MailerService $mailerService): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
         $form->handleRequest($request);
-        $email = $form->getData('email');
+        $mail = $form->getData('email');
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($email){
+            if ($mail){
 
-                // $mailerService->sendEmail($email, null);
+                // $mailerService->sendEmail($email, Null);
                 return $this->processSendingPasswordResetEmail(
                     $form->get('email')->getData(),
                     $mailer,
@@ -61,13 +63,8 @@ class ResetPasswordController extends AbstractController
             }
         }
 
-        $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
-        $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
-
         return $this->render('reset_password/request.html.twig', [
             'requestForm' => $form->createView(),
-            'peluchesCategory' => $peluchesCategory,
-            'doudousCategory' => $doudousCategory,
         ]);
     }
 
@@ -99,7 +96,7 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("/reset/{token}", name="app_reset_password")
      */
-    public function reset(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $userPasswordHasher, TranslatorInterface $translator, string $token = null): Response
+    public function reset(Request $request, UserPasswordHasherInterface $userPasswordHasher, TranslatorInterface $translator, string $token = null): Response
     {
         if ($token) {
             // We store the token in session and remove it from the URL, to avoid the URL being
@@ -149,12 +146,8 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
-        $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
         return $this->render('reset_password/reset.html.twig', [
             'resetForm' => $form->createView(),
-            'peluchesCategory' => $peluchesCategory,
-            'doudousCategory' => $doudousCategory,
         ]);
     }
 
@@ -189,7 +182,7 @@ class ResetPasswordController extends AbstractController
         $email = (new TemplatedEmail())
             ->from(new Address('test@test.fr', 'Mail Bot'))
             ->to($user->getEmail())
-            ->subject('Your password reset request')
+            ->subject('Réinitialisation du mot de passe')
             ->htmlTemplate('reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,

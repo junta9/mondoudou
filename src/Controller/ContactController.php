@@ -30,14 +30,14 @@ class ContactController extends AbstractController
                 //     'content' => $content,
                 // ];
 
-                $message = new Messages();
-                $message->setName($name);
-                $message->setEmail($email);
-                $message->setContent($content);
-                $message->setCreatedAt(new \DateTimeImmutable());
+                // $message = new Messages();
+                // $message->setName($name);
+                // $message->setEmail($email);
+                // $message->setContent($content);
+                // $message->setCreatedAt(new \DateTimeImmutable());
 
-                $em->persist($message);
-                $em->flush();
+                // $em->persist($message);
+                // $em->flush();
 
                 $mailerService->sendEmail($email, $content);
 

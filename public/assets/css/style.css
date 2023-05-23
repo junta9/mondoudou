@@ -1155,6 +1155,7 @@ input.mail_bt::placeholder {
   bottom: 6%;
   font-size: 50px;
   color: #f26522;
+  z-index: 2000;
 }
 #sticky-card #cart_items_count {
   font-size: 1rem;

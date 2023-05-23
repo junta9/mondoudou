@@ -10,26 +10,6 @@
 {% block body %}
 <div class="photo"></div>
 
-<!-- <form action="{{ path('app_register') }}" method="post">
-        <h1>S'enregistrer</h2>
-        <div class="inputBox">
-            <input type="text" required="required">
-            <span>E-mail</span>
-        </div>
-        <div class="inputBox">
-            <input type="password" required="required">
-            <span>Password</span>
-        </div>
-        <div>
-            <input id="checkBox" type="checkbox" onclick="showPass()">Show Password
-        </div>
-        <div class="inputButton">
-            <input type="submit" value="Envoyer" class="btn btn-dark">
-        </div>
-        <p>Si vous avez déja un compte, rendez vous <a href="{{ path("app_login") }}">ici</a></p>
-        <p>Retour à l'accueil <a href="{{ path("app_home") }}">ici</a></p>
-    </form> -->
-
     <form action="{{ path('app_register') }}" method="post">
       {{ form_start(form) }}
           <h1>S'enregistrer</h1>
