@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Repository\PhotosRepository;
 use App\Repository\ProductRepository;
+use App\Service\CartService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,81 +21,27 @@ class CartController extends AbstractController
     /**
      * @Route("/panier", name="app_panier")
      */
-    public function index(SessionInterface $session, ProductRepository $productRepository, PhotosRepository $photosRepository, EntityManagerInterface $em)
+    public function index(CartService $cartService)
     {
-        $panier = $session->get('panier', []);
-        $panierWithDatas = [];
-        foreach ($panier as $id => $quantity)
-        {
-            $panierWithDatas[] = [
-                'product' => $productRepository->find($id),
-                'photo' => $photosRepository->findOneBy(['product' => $id]),
-                'quantity' => $quantity,
-            ];
-        }
-        $total = 0;
-        $totalQuantity = 0;
-        // $shipping = 5;
+        $panierWithDatas = $cartService->show();
+        $total = $cartService->getTotalPrice();
+        $totalQuantity = $cartService->getTotalQuantity();
 
-        foreach ($panierWithDatas as $item)
-        {
-            $totalItem = $item['product']->getPrice() * $item['quantity'];
-            $total += $totalItem;
-            $totalQuantity += $item['quantity'];
-        }
-
-        // $totalInclShipping = $total + $shipping;
-
-        $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
-        $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
         return $this->render('panier/panier.html.twig', [
             'controller_name' => 'HomeController',
             'items' => $panierWithDatas,
             'total' => $total,
-            // 'totalInclShipping' => $totalInclShipping,
             'totalQuantity' => $totalQuantity,
-            'peluchesCategory' => $peluchesCategory,
-            'doudousCategory' => $doudousCategory,
         ]);
     }
     /**
      * @Route("/panier/add/{id}", name="add_panier")
      */
-    public function add($id, SessionInterface $session, ProductRepository $productRepository, Request $request)
+    public function add($id, CartService $cartService, Request $request)
     {
-        $panier = $session->get('panier', []);
-        $product = $productRepository->find($id);
+        $cartService->add($id);
+        $totalQuantity = $cartService->getTotalQuantity();
 
-        if (!empty($panier[$id]))
-        {
-            if ($panier[$id] < $product->getQuantity())
-            {
-                $panier[$id]++;
-            }
-        }
-        else
-        {
-            $panier[$id] = 1;
-        }
-        $session->set('panier', $panier);
-        $panierWithDatas = [];
-        foreach ($panier as $id => $quantity)
-        {
-            $panierWithDatas[] = [
-                'product' => $productRepository->find($id),
-                'quantity' => $quantity,
-            ];
-        }
-        $total = 0;
-        $totalQuantity = 0;
-        // $shipping = 5;
-
-        foreach ($panierWithDatas as $item)
-        {
-            $totalItem = $item['product']->getPrice() * $item['quantity'];
-            $total += $totalItem;
-            $totalQuantity += $item['quantity'];
-        }
         if ($request->isXmlHttpRequest())
         {
             return $this->json([
@@ -108,15 +55,9 @@ class CartController extends AbstractController
     /**
      * @Route("/panier/remove/{id}", name="del_panier")
      */
-    public function remove($id, SessionInterface $session)
+    public function remove($id, CartService $cartService)
     {
-        $panier = $session->get('panier', []);
-
-        if (!empty($panier[$id]))
-        {
-            unset($panier[$id]);
-        }
-        $session->set('panier', $panier);
+        $cartService->remove($id);
 
         return $this->redirectToRoute("app_panier");
     }
@@ -124,14 +65,9 @@ class CartController extends AbstractController
     /**
      * @Route("/panier/remove", name="del_panier_all")
      */
-    public function removeAll(SessionInterface $session)
+    public function removeAll(CartService $cartService)
     {
-        $panier = $session->get('panier', []);
-        if (!empty($panier))
-        {
-            $panier = [];
-        }
-        $session->set('panier', $panier);
+        $cartService->removeAll();
 
         return $this->redirectToRoute("app_panier");
     }

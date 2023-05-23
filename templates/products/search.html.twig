@@ -224,8 +224,13 @@ const addButtons = document.querySelectorAll("#add");
             setTimeout(function () {
               notif.classList.remove("show");
             }, 5000);
-            const cartItemCount = document.getElementById("cart_items_count");
+            const cartItemCounts = document.querySelectorAll("#cart_items_count");
+            cartItemCounts.forEach(cartItemCount => {
             cartItemCount.innerHTML = response.totalQuantity;
+            });
+            if (response.totalQuantity == 1){
+               window.location.reload();
+            }
 			console.log(response.totalQuantity);
           } else {
             alert("Une erreur est survenue : " + response.message);

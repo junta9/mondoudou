@@ -1188,6 +1188,24 @@ input.mail_bt::placeholder {
   }
 }
 
+#sticky-card {
+  position: fixed;
+  right: 5%;
+  bottom: 6%;
+  font-size: 50px;
+  color: #f26522;
+  z-index: 2000;
+}
+#sticky-card #cart_items_count {
+  font-size: 1rem;
+  position: absolute;
+  transform: translateX(50%);
+
+}
+.footer-link a {
+  color: white!important;
+}
+
 /* #logo_title_2 {
   display: block!important;
 } */
