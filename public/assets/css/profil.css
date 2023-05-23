@@ -1141,6 +1141,10 @@ input.mail_bt::placeholder {
     display: none !important;
   }
 }
+.footer-link a {
+  color: white!important;
+}
+
 /* Partie profil */
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 body {
