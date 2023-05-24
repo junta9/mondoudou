@@ -44,13 +44,14 @@ class ProfilController extends AbstractController
         $user_lastname = $request->request->get('user-lastname');
         $user_email = $request->request->get('user-email');
         $user_mobile = $request->request->get('user-mobile');
-
+        
         // $user = new User();
         $user->setFirstname($user_firstname);
         $user->setLastname($user_lastname);
-        $user->setEmail($user_email);
+        // $user->setEmail($user_email);
         $user->setMobile($user_mobile);
-
+        
+        // dd($user);
         // $em->persist($user);
         $em->flush();
 
