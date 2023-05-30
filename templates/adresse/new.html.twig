@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
-{% block title %}Hello AdresseController!{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
 <div class="card-form">
     <form method="post">
+    <h1 class="text-center">Ajouter une adresse</h1>
     {{ form_start(form) }}
 
     <div class="form-group">
@@ -72,6 +73,12 @@ form {
     box-shadow: 2px 2px 5px 0;
     margin: 50px 0;
 }
+@media screen and (max-width: 320px) {
+    form {
+        width: 100%;
+    }
+}
+
 
 </style>
 

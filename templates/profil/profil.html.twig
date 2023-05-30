@@ -204,6 +204,9 @@
 								{{ adresse.city }}<br>
 								{{ adresse.country }}
 							</label>
+							<div class="mt-1">
+								<a class="btn btn-danger" href="{{ path('adresse_del', {id: adresse.id}) }}">Supprimer</a>
+							</div>
 						</div>
 						{% endfor %}
 						<div class="my-3 text-center w-100">

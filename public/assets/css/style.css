@@ -225,7 +225,9 @@ button {
 @media screen and (max-width:768px) {
   .banner_bg_main {
   height: 70vh;
-
+  }
+  .tshirt_img  {
+    height: 250px!important;
   }
 }
 @media screen and (max-width:425px) {
@@ -617,7 +619,8 @@ a:hover {
   width: 100%;
   text-align: center;
   margin: 50px 0px;
-  min-height: 370px;
+  /* height: 370px; */
+  height: 250px;
 }
 
 .btn_main {

@@ -224,13 +224,8 @@ button {
 } */
 @media screen and (max-width:768px) {
   .banner_bg_main {
-  height: 70vh;
-
-  }
-}
-@media screen and (max-width:425px) {
-  .banner_bg_main {
   height: 30vh;
+  background-image: none;
 
   }
 }
@@ -1164,6 +1159,19 @@ input.mail_bt::placeholder {
 }
 .footer-link a {
   color: white!important;
+}
+.section-text {
+  width: 75%;
+}
+@media screen and (max-width: 768px) {
+  section.section {
+    margin: 0!important;
+    padding: 0!important;
+  }
+  .section-text {
+    width: 100%;
+  }
+
 }
 @media screen and (max-width: 426px) {
   .footer-link ul {

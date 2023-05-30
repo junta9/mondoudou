@@ -133,7 +133,7 @@
     }
     .tshirt_img {
         margin: 20px 0px;
-        min-height: 360px;
+        /* min-height: 360px; */
     }
     #main_slider a.carousel-control-next {
         right: 40px;
@@ -147,11 +147,11 @@
         margin: 20px 0px;
         min-height: 280px;
     }
-    #electronic_main_slider a.carousel-control-next {
+    #doudous_main_slider a.carousel-control-next {
         right: 40px;
         top: 110%;
     }
-    #electronic_main_slider a.carousel-control-prev {
+    #doudous_main_slider a.carousel-control-prev {
         left: 40px;
         top: 110%;
     }
@@ -181,7 +181,7 @@
     }
     .tshirt_img {
         margin: 20px 0px;
-        min-height: 320px;
+        /* min-height: 320px; */
     }
     .banner_taital {
         font-size: 50px;
@@ -198,11 +198,11 @@
         margin: 20px 0px;
         min-height: 190px;
     }
-    #electronic_main_slider a.carousel-control-next {
+    #doudous_main_slider a.carousel-control-next {
         right: 40px;
         top: 110%;
     }
-    #electronic_main_slider a.carousel-control-prev {
+    #doudous_main_slider a.carousel-control-prev {
         left: 40px;
         top: 110%;
     }
@@ -329,11 +329,11 @@
         right: 33px;
         top: 101%;
     }
-    #electronic_main_slider a.carousel-control-prev {
+    #doudous_main_slider a.carousel-control-prev {
         left: 33px;
         top: 101%;
     }
-    #electronic_main_slider a.carousel-control-next {
+    #doudous_main_slider a.carousel-control-next {
         right: 33px;
         top: 101%;
     }
@@ -444,11 +444,11 @@
         right: 15px;
         top: 101%;
     }
-    #electronic_main_slider a.carousel-control-prev {
+    #doudous_main_slider a.carousel-control-prev {
         left: 15px;
         top: 101%;
     }
-    #electronic_main_slider a.carousel-control-next {
+    #doudous_main_slider a.carousel-control-next {
         right: 15px;
         top: 101%;
     }

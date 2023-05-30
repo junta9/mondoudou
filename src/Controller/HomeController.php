@@ -174,6 +174,45 @@ class HomeController extends AbstractController
             'doudousCategory' => $doudousCategory,
         ]);
     }
+    /**
+     * @Route("cgv", name="cgv")
+     */
+    public function viewCgv(EntityManagerInterface $em)
+    {
+        $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
+        $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
+        return $this->render('cgv.html.twig', [
+            'controller_name' => 'HomeController',
+            'peluchesCategory' => $peluchesCategory,
+            'doudousCategory' => $doudousCategory,
+        ]);
+    }
+    /**
+     * @Route("cgu", name="cgu")
+     */
+    public function viewCgu(EntityManagerInterface $em)
+    {
+        $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
+        $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
+        return $this->render('cgu.html.twig', [
+            'controller_name' => 'HomeController',
+            'peluchesCategory' => $peluchesCategory,
+            'doudousCategory' => $doudousCategory,
+        ]);
+    }
+    /**
+     * @Route("mentions-legales", name="mentions_legales")
+     */
+    public function viewMentions(EntityManagerInterface $em)
+    {
+        $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
+        $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
+        return $this->render('politique-cookies.html.twig', [
+            'controller_name' => 'HomeController',
+            'peluchesCategory' => $peluchesCategory,
+            'doudousCategory' => $doudousCategory,
+        ]);
+    }
 
 
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Adresses;
 use App\Form\AdresseType;
+use App\Repository\AdressesRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,5 +48,16 @@ class AdresseController extends AbstractController
         return $this->render('adresse/new.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+    /**
+     * @Route("/adresse/del/{id}", name="adresse_del")
+     */
+    public function del($id, AdressesRepository $adressesRepository, EntityManagerInterface $em)
+    {
+        //suppression de l'adresse dans la base de données
+        $adresse = $adressesRepository->find($id);
+        $adressesRepository->remove($adresse);
+        $em->flush();
+        return $this->redirectToRoute('app_profil');
     }
 }
