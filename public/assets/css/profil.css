@@ -222,11 +222,6 @@ button {
   background-repeat: no-repeat;
   background-position: 50%;
 } */
-@media screen and (max-width:768px) {
-  .banner_bg_main {
-  height: 50vh;
-  }
-}
 
 /* banner bg main end */
 
@@ -1184,6 +1179,48 @@ body {
 	width: 100px;
 	border-radius: 100%;
 	border: 5px solid #fff;
+}
+
+.nav-link.active {
+  background-color: #5d3d29!important;
+}
+.form-mdp form {
+  width: 50%;
+}
+.btn-adress {
+  width: 50%;
+}
+
+@media screen and (max-width:1000px) {
+  .btn-adress {
+    width: 100%;
+  }
+}
+@media screen and (max-width:768px) {
+  .form-mdp form {
+    width: 100%;
+  }
+  
+}
+
+@media screen and (max-width: 426px) {
+  .footer-link ul {
+    flex-wrap: wrap;
+  }
+  .footer-link a {
+    font-size: 0.8em;
+  }
+  .bg-white.shadow {
+    height: auto!important;
+  }
+}
+@media screen and (max-width: 320px) {
+  h1 {
+    font-size: 1.5em!important;
+  }
+  .bg-white.shadow {
+    margin: 0!important;
+  }
 }
 
 

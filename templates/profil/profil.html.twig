@@ -115,13 +115,18 @@
 <section class="py-5 my-5">
 	<div class="container my-5">
 		<h1 class="my-5 pt-5 text-center text-uppercase fw-bold">Informations personnelles</h1>
-		<div class="bg-white shadow rounded-lg d-block d-sm-flex" style="height: 550px;">
+		<div class="bg-white shadow rounded-lg d-block d-sm-flex" style="height: 400px;">
 			<div class="profile-tab-nav border-right">
 				<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 					<a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab"
 						aria-controls="account" aria-selected="true">
 						<i class="fa fa-home text-center mr-1"></i>
 						Mon compte
+					</a>
+					<a class="nav-link" id="adresses-tab" data-toggle="pill" href="#adresses" role="tab"
+						aria-controls="adresses" aria-selected="false">
+						<i class="fa fa-file-text text-center mr-1"></i>
+						Adresses
 					</a>
 					<a class="nav-link" id="password-tab" data-toggle="pill" href="#order" role="tab"
 						aria-controls="order" aria-selected="false">
@@ -167,16 +172,20 @@
 										value="{{ user.mobile }}">
 								</div>
 							</div>
-							<button class="btn btn-primary w-50">Mettre à jour</button>
 
 						</div>
+						<div class="d-flex justify-content-center">
+							<button class="btn btn-dark w-50">Mettre à jour</button>
+						</div>
 					</form>
+				</div>
+				<div class="tab-pane fade" id="adresses" role="tabpanel" aria-labelledby="adresses-tab">
 					{% if adresses is empty %}
 					<div class="col" style="margin-top: 100px;">
 						<h5>Vous n'avez pas renseigner d'adresse de livraison, veuillez en ajouter une en appuyant
 							sur le bouton</h5>
 						<div class="my-3 text-center">
-							<a href="{{ path('adresse_new') }}" class="border-0 btn btn-primary w-50">+ Ajouter une
+							<a href="{{ path('adresse_new') }}" class="border-0 btn btn-dark w-50">+ Ajouter une
 								nouvelle adresse</a>
 						</div>
 					</div>
@@ -184,7 +193,7 @@
 					<h3 class="my-3" style="border-bottom: 1px solid gray">Adresse de livraison</h3>
 					<div class="row">
 						{% for adresse in adresses %}
-						<div class="form-check col">
+						<div class="form-check col-md">
 							{# <input class="form-check-input" type="radio" name="adresse_id" id="{{ adresse.id }}"
 								value="{{ adresse.id }}" required> #}
 							<label class="form-check-label" for="{{ adresse.id }}">
@@ -197,8 +206,8 @@
 							</label>
 						</div>
 						{% endfor %}
-						<div class="my-3 text-center">
-							<a href="{{ path('adresse_new') }}" class="border-0 btn btn-primary w-50">+ Ajouter une
+						<div class="my-3 text-center w-100">
+							<a href="{{ path('adresse_new') }}" class="border-0 btn btn-dark btn-adress">+ Ajouter une
 								nouvelle adresse</a>
 						</div>
 					</div>
@@ -210,7 +219,7 @@
 					</div>
 				</div>
 				<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
-					<form action="{{ path('profil_user_update_password') }}" method="POST">
+					{# <form action="{{ path('profil_user_update_password') }}" method="POST">
 						<h3 class="mb-4">Changer le mot de passe</h3>
 						<div class="row">
 							<div class="col-md-6">
@@ -238,7 +247,15 @@
 							<button class="btn btn-primary">Update</button>
 							<button class="btn btn-light">Cancel</button>
 						</div>
-					</form>
+					</form> #}
+					<div class="d-flex flex-reverse px-1 w-100 form-mdp">
+					{{ form_start(formulaire) }}
+					{# {{ form_row(form.oldPassword) }} #}
+					{{ form_row(formulaire.plainPassword) }}
+					{# {{ form_row(formulaire.confirmPassword) }} #}
+					{{ form_row(formulaire.submit) }}
+					{{ form_end(formulaire) }}
+					</div>
 				</div>
 			</div>
 		</div>

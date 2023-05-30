@@ -201,5 +201,26 @@ a:hover{
       text-align: center;
     }
 }
+@media screen and (max-width:320px) {
+  .cart {
+    padding: 1vh!important;
+  }
+}
+@media screen and (max-width:425px) {
+  .card {
+    width: 100%;
+    margin: 0!important;
+    padding: 20px 0;
+    border-radius: inherit!important;
+  } 
+  .cart {
+    border-radius: inherit!important;
+  }
+}
+@media screen and (width:768px) {
+ .summary {
+  padding: 0!important;
+ }
+}
 
 /* copyright section end */

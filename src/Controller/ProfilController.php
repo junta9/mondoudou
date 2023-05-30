@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Adresses;
 use App\Entity\Category;
 use App\Entity\User;
+use App\Form\ChangePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,29 +13,55 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class ProfilController extends AbstractController
 {
     /**
-     * @Route("/profil", name="app_profil")
+     * @Route("/profile", name="app_profil")
      */
-    public function index(EntityManagerInterface $em): Response
+    public function index(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
         $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
 
         $user = $this->getUser();
-        $adresses = $em->getRepository(Adresses::class)->findBy(['user' => $user]);
+        if (!$user){
+            return  $this->redirectToRoute('app_home');
+        } else {
+            $adresses = $em->getRepository(Adresses::class)->findBy(['user' => $user]);
+            $form = $this->createForm(ChangePasswordFormType::class);
 
-        return $this->render('profil/profil.html.twig', [
-            'controller_name' => 'ProfilController',
-            'peluchesCategory' => $peluchesCategory,
-            'doudousCategory' => $doudousCategory,
-            'user' => $user,
-            'adresses' => $adresses,
-        ]);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $data = $form->getData();
+                $oldPassword = $data['oldPassword'];
+                $newPassword = $data['newPassword'];
+
+                if ($passwordHasher->isPasswordValid($user, $oldPassword)) {
+                    $encodedPassword = $passwordHasher->hashPassword($user, $newPassword);
+                    $user->setPassword($encodedPassword);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->flush();
+
+                    $this->addFlash('success', 'Votre mot de passe a été mis à jour avec succès.');
+                    return $this->redirectToRoute('app_profil');
+                } else {
+                    $this->addFlash('error', 'Ancien mot de passe incorrect.');
+                }
+            }
+            
+            return $this->render('profil/profil.html.twig', [
+                'controller_name' => 'ProfilController',
+                'peluchesCategory' => $peluchesCategory,
+                'doudousCategory' => $doudousCategory,
+                'user' => $user,
+                'adresses' => $adresses,
+                'formulaire' => $form->createView(),
+            ]);
+        }
     }
     /**
-     * @Route("/profil/update/user", name="profil_user_update")
+     * @Route("/profile/update/user", name="profil_user_update")
      */
     public function updateUser(EntityManagerInterface $em, Request $request)
     {
@@ -60,7 +87,7 @@ class ProfilController extends AbstractController
     }
 
     /**
-     * @Route("/profil/update/password", name="profil_user_update_password")
+     * @Route("/profile/update/password", name="profil_user_update_password")
      */
     public function updatePassword(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $passwordEncoder)
     {

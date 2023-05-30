@@ -18,11 +18,14 @@ class TransporteurType extends AbstractType
                     'Livraison Standard, 3 à 5 jours, € 5.00' => '5',
                     'Livraison Express, 1 à 3 jours, € 10.00' => '10',
                 ],
+                'attr' => [
+                    'class' => 'transporteur-select', // Ajoutez ici la classe CSS personnalisée pour votre bouton
+                ],
                 'required' => true,
             ])
             ->add('Ajouter', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary w-25 m-0 right border-0', // Ajoutez ici la classe CSS personnalisée pour votre bouton
+                    'class' => 'btn btn-primary w-25 m-0 right border-0 d-none', // Ajoutez ici la classe CSS personnalisée pour votre bouton
                 ],
             ]);
         

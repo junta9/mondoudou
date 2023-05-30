@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class CustomRegisterType extends AbstractType
 {
@@ -34,13 +35,21 @@ class CustomRegisterType extends AbstractType
                 'label' => 'Mot de passe',
                 'attr' => [
                     'class' => 'myPass'
-                ]
+                ],
+                // 'constraints' => [
+                //     new Regex('/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/', 
+                //     "Il faut un mot de passe de 8 caractères avec 1 majuscule, 1 miniscule, 1 chiffre et 1 caractère spécial")
+                // ]
             ],
             'second_options' => [
                 'label' => 'Répéter le mot de passe',
                 'attr' => [
                     'class' => 'myPass'
-                ]
+                ],
+                // 'constraints' => [
+                //     new Regex('/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/', 
+                //     "Il faut un mot de passe de 8 caractères avec 1 majuscule, 1 miniscule, 1 chiffre et 1 caractère spécial")
+                // ]
             ]
         ])
         ->add('submit', SubmitType::class, [
