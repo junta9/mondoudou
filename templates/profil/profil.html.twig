@@ -217,9 +217,35 @@
 					{% endif %}
 				</div>
 				<div class="tab-pane fade" id="order" role="tabpanel" aria-labelledby="order-tab">
+					{# {{ dump(orders)}} #}
+					{% if orders is empty %}
 					<div class="row" style="margin-top: 50px;">
 						<h5>Vous n'avez pas encore effectué de commandes.</h5>
 					</div>
+					{% else %}
+					<div class="row" style="margin-top: 50px;">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Status</th>
+									<th>Total</th>
+									<th>Date de création</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for order in orders %}
+									<tr>
+										<td>{{ order.id }}</td>
+										<td>{{ order.status }}</td>
+										<td>{{ order.total }} €</td>
+										<td>{{ order.getCreatedAt()|date('d/m/Y H:i:s') }}</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+					{% endif %}
 				</div>
 				<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
 					{# <form action="{{ path('profil_user_update_password') }}" method="POST">

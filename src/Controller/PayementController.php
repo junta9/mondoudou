@@ -85,7 +85,7 @@ class PayementController extends AbstractController
   {
     $panier = $session->getSession()->get("panier");
     $adresseDelivery = $session->getSession()->get("adresseDelivery");
-    $transporteur = $this->get('session')->get('transporteur', 0);
+    $transporteur = $session->getSession()->get('transporteur');
 
     // création d'un objet order
     $order = new Order();
@@ -113,14 +113,16 @@ class PayementController extends AbstractController
       
       
     }
+    // dd($transporteur);
     
-    dd($order);
     // Persist the Order entity and its associated OrderItems
     $em->persist($order);
     $em->flush();
-
-    // on vide le panier
+    
+    // remove session variables
     $cartService->removeAll();
+    $session->getSession()->remove('transporteur');
+    $session->getSession()->remove('adresseDelivery');
 
     return $this->render(
       "commande/success.html.twig"

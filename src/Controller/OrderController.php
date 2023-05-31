@@ -28,6 +28,10 @@ class OrderController extends AbstractController
      */
     public function index(SessionInterface $session,CartService $cartService, AdressesRepository $adressesRepository, TransporteurRepository $transporteurRepository, Request $request): Response
     {
+        if(empty($cartService->show())){
+            return $this->redirectToRoute('app_home');
+        }
+
         if(!$this->getUser())
         {
             return $this->redirectToRoute("app_login");
@@ -39,11 +43,13 @@ class OrderController extends AbstractController
         ]);
         $transportForm = $this->createForm(TransporteurType::class);
         $transportForm->handleRequest($request);
-        $transporteur = 0;
+        $transporteur = 5;
+        $this->get('session')->set('transporteur', $transporteur);
 
         if ($transportForm->isSubmitted() && $transportForm->isValid()) {
             $transporteur = $transportForm->get('transporteur')->getData();
             $this->get('session')->set('transporteur', $transporteur);
+
         }
         
         $panierWithDatas = $cartService->show();
@@ -79,7 +85,7 @@ class OrderController extends AbstractController
         // Enregistrer l'identifiant de l'adresse dans la session
         $session = $request->getSession();
         $session->set('adresseDelivery', $adresseDelivery);
-        dd($adresseDelivery);
+        // dd($adresseDelivery);
 
         // Autres traitements de votre contrôleur...
 

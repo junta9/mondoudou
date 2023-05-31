@@ -6,6 +6,7 @@ use App\Entity\Adresses;
 use App\Entity\Category;
 use App\Entity\User;
 use App\Form\ChangePasswordFormType;
+use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,12 +20,14 @@ class ProfilController extends AbstractController
     /**
      * @Route("/profile", name="app_profil")
      */
-    public function index(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $passwordHasher): Response
+    public function index(OrderRepository $orderRepository ,EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
+        $user = $this->getUser();
         $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
         $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
+        $orders = $orderRepository->findBy(['user_id' => $user]);
 
-        $user = $this->getUser();
+
         if (!$user){
             return  $this->redirectToRoute('app_home');
         } else {
@@ -55,6 +58,7 @@ class ProfilController extends AbstractController
                 'peluchesCategory' => $peluchesCategory,
                 'doudousCategory' => $doudousCategory,
                 'user' => $user,
+                'orders' => $orders,
                 'adresses' => $adresses,
                 'formulaire' => $form->createView(),
             ]);
@@ -111,5 +115,15 @@ class ProfilController extends AbstractController
             }
         }
         return $this->redirectToRoute('app_profil');
+    }
+
+    /**
+     * @Route("/profile/order/invoice", name="app_order_invoice")
+     */
+    public function invoice(OrderRepository $orderRepository){
+
+        $user = $this->getUser();
+        $orders = $orderRepository->findBy(['user_id' => $user]);
+        
     }
 }
