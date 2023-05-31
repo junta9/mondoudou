@@ -230,6 +230,7 @@
 									<th>ID</th>
 									<th>Status</th>
 									<th>Total</th>
+									<th>Facture</th>
 									<th>Date de création</th>
 								</tr>
 							</thead>
@@ -239,6 +240,7 @@
 										<td>{{ order.id }}</td>
 										<td>{{ order.status }}</td>
 										<td>{{ order.total }} €</td>
+										<td><a href="{{ path('app_pdf_generator', {id: order.id}) }}">Facture</a></td>
 										<td>{{ order.getCreatedAt()|date('d/m/Y H:i:s') }}</td>
 									</tr>
 								{% endfor %}

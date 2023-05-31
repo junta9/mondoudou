@@ -118,12 +118,12 @@ class ProfilController extends AbstractController
     }
 
     /**
-     * @Route("/profile/order/invoice", name="app_order_invoice")
+     * @Route("/profile/order/invoice/{id}", name="app_order_invoice")
      */
-    public function invoice(OrderRepository $orderRepository){
+    public function invoice($id,InvoiceController $invoice){
 
-        $user = $this->getUser();
-        $orders = $orderRepository->findBy(['user_id' => $user]);
-        
+        // $user = $this->getUser();
+        // $order = $orderRepository->find($id);
+        $invoice->generateInvoice($id);
     }
 }

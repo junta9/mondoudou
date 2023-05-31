@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Facture</title>
+    <style>
+        /* Styles CSS pour la facture */
+        /* ... */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Facture</h1>
+        <!-- Informations de l'entreprise -->
+        <p>Nom de l'entreprise</p>
+        <p>Adresse de l'entreprise</p>
+        <!-- ... -->
+    </header>
+
+    <main>
+        <section>
+            <h2>Informations du client</h2>
+            <!-- Informations du client -->
+            <p>Nom du client</p>
+            <p>Adresse du client</p>
+            <!-- ... -->
+        </section>
+
+        <section>
+            <h2>Détails de la facture</h2>
+            <!-- Tableau des produits/services -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Prix unitaire</th>
+                        <th>Quantité</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Boucle pour afficher les lignes de produits/services -->
+                    {% for orderItem in orderItems %}
+                    {{ dump(orderItem) }}
+                    <tr>
+                        {# <td>{{ orderItem.nom }}</td>
+                        <td>{{ orderItem.prix }}</td>
+                        <td>{{ orderItem.quantite }}</td>
+                        <td>{{ orderItem.total }}</td> #}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Total de la facture -->
+            <p>Total : {{ total }}</p>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Informations supplémentaires -->
+        <p>Conditions de paiement</p>
+        <p>Coordonnées bancaires</p>
+        <!-- ... -->
+    </footer>
+</body>
+</html>
