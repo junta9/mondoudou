@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrderRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,6 +45,24 @@ class Order
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $updated_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="orderId", cascade={"persist"})
+     */
+    private $order_item;
+
+    /**
+     * @ORM\Column(type="text", nullable=true))
+     */
+    private $delivery_address;
+
+    public function __construct()
+    {
+        $this->order_item = new ArrayCollection();
+        // $this->order_item = [];
+    }
+
+
 
     public function getId(): ?int
     {
@@ -105,6 +125,48 @@ class Order
     public function setUpdatedAt(?\DateTimeImmutable $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrderItem>
+     */
+    public function getOrderItem(): Collection
+    {
+        return $this->order_item;
+    }
+
+    public function addOrderItem(OrderItem $orderItem): self
+    {
+        if (!$this->order_item->contains($orderItem)) {
+            $this->order_item[] = $orderItem;
+            $orderItem->setOrderId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderItem(OrderItem $orderItem): self
+    {
+        if ($this->order_item->removeElement($orderItem)) {
+            // set the owning side to null (unless already changed)
+            if ($orderItem->getOrderId() === $this) {
+                $orderItem->setOrderId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDeliveryAddress(): ?string
+    {
+        return $this->delivery_address;
+    }
+
+    public function setDeliveryAddress(string $delivery_address): self
+    {
+        $this->delivery_address = $delivery_address;
 
         return $this;
     }

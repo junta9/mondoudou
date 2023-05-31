@@ -26,7 +26,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/order/view", name="order_index")
      */
-    public function index(CartService $cartService, AdressesRepository $adressesRepository, TransporteurRepository $transporteurRepository, Request $request): Response
+    public function index(SessionInterface $session,CartService $cartService, AdressesRepository $adressesRepository, TransporteurRepository $transporteurRepository, Request $request): Response
     {
         if(!$this->getUser())
         {
@@ -39,7 +39,7 @@ class OrderController extends AbstractController
         ]);
         $transportForm = $this->createForm(TransporteurType::class);
         $transportForm->handleRequest($request);
-        $transporteur = 5;
+        $transporteur = 0;
 
         if ($transportForm->isSubmitted() && $transportForm->isValid()) {
             $transporteur = $transportForm->get('transporteur')->getData();
@@ -66,5 +66,24 @@ class OrderController extends AbstractController
             'deliverys' => $deliverys,
             
         ]);
+    }
+
+    /**
+     * @Route("/order/delivery", name="order_delivery")
+     */
+    public function votreAction(Request $request)
+    {
+        // Récupérer l'identifiant de l'adresse sélectionnée
+        $adresseDelivery = $request->request->get('adresse_id');
+
+        // Enregistrer l'identifiant de l'adresse dans la session
+        $session = $request->getSession();
+        $session->set('adresseDelivery', $adresseDelivery);
+        dd($adresseDelivery);
+
+        // Autres traitements de votre contrôleur...
+
+        // Redirection vers une autre page
+        return $this->redirectToRoute('order_index');
     }
 }

@@ -17,17 +17,19 @@ class OrderItem
      */
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Order::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $order_id;
+ 
+
+    // /**
+    //  * @ORM\OneToMany(targetEntity=Product::class, mappedBy="product_id")
+    //  * @ORM\JoinColumn(nullable=false)
+    //  */
+    // private $product_id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Product::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $product_id;
+    private $product;
 
     /**
      * @ORM\Column(type="integer")
@@ -39,34 +41,22 @@ class OrderItem
      */
     private $price;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="order_item")
+     */
+    private $order_id;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $total_price;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getOrderId(): ?Order
-    {
-        return $this->order_id;
-    }
 
-    public function setOrderId(?Order $order_id): self
-    {
-        $this->order_id = $order_id;
-
-        return $this;
-    }
-
-    public function getProductId(): ?Product
-    {
-        return $this->product_id;
-    }
-
-    public function setProductId(?Product $product_id): self
-    {
-        $this->product_id = $product_id;
-
-        return $this;
-    }
 
     public function getQuantity(): ?int
     {
@@ -91,4 +81,41 @@ class OrderItem
 
         return $this;
     }
+
+    public function getOrderId(): ?Order
+    {
+        return $this->order_id;
+    }
+
+    public function setOrderId(?Order $order_id): self
+    {
+        $this->order_id = $order_id;
+
+        return $this;
+    }
+
+    public function getTotalPrice(): ?float
+    {
+        return $this->total_price;
+    }
+
+    public function setTotalPrice(float $total_price): self
+    {
+        $this->total_price = $total_price;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
 }
