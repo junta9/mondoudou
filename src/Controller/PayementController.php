@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Entity\OrderItem;
+use App\Repository\AdressesRepository;
 use App\Repository\OrderItemRepository;
 use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
 use App\Service\CartService;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Expr\Cast\Bool_;
 use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,6 +78,7 @@ class PayementController extends AbstractController
   public function success(
     // FactureRepository $factureRepository,
     RequestStack $session,
+    AdressesRepository $adressesRepository,
     ProductRepository $productRepository,
     OrderRepository $orderRepository,
     OrderItemRepository $orderItemRepository,
@@ -92,6 +95,8 @@ class PayementController extends AbstractController
     $order->setUserId($this->getUser());
     $order->setStatus('En attente'); // Set the initial status of the order
     $order->setCreatedAt(new \DateTimeImmutable());
+    $order->setDeliveryPrice($transporteur);
+    // dd($adresseDelivery);
     $order->setDeliveryAddress($adresseDelivery);
 
     foreach ($panier as $key => $quantity)

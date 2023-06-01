@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Facture</title>
     <link rel="stylesheet" href="../../public/assets/css/bootstrap.min.css">
+
     <style>
         /* Styles CSS pour la facture */
         /* ... */
@@ -13,51 +14,39 @@
         td {
             text-align: center;
         }
-        .address-section {
-        width: 40%;
-        float: right;
-        }
-        .header-section {
-            text-align: right;
-            margin-bottom: 100px;
-        }
-
-        .address-container {
-            margin-left: auto;
-            text-align: left;
-        }
-        .facture-section {
-            margin-top: 250px
+        #frais_de_port, #total_price {
+            display: flex;
+            width: 100%;
+            justify-content: end;
+            align-items: end;
         }
     </style>
 </head>
 <body>
-    <header class="header-section">
+    <header>
         <h1>Facture</h1>
         <!-- Informations de l'entreprise -->
-        {# <p>MONDOUDOU</p> #}
+        <p>Nom de l'entreprise</p>
+        <p>Adresse de l'entreprise</p>
         <!-- ... -->
     </header>
 
     <main>
-        <section class="address-section">
-            <div class="address-container">
-                <h2>Adresse de livraison</h2>
-                <!-- Informations du client -->
-                <p>{{ name }}</p>
-                <p>
-                    {{ address_rue }}<br>
-                    {{ address_code_postal }}<br>
-                    {{ address_city }}<br>
-                    {{ address_country }}<br>
-                </p>
-                <!-- ... -->
-            </div>
+        <section>
+            <h2>Adresse de livraison</h2>
+            <!-- Informations du client -->
+            <p>{{ name }}</p>
+            <p>
+                {{ address_rue }}<br>
+                {{ address_code_postal }}<br>
+                {{ address_city }}<br>
+                {{ address_country }}<br>
+            </p>
+            <!-- ... -->
         </section>
 
-
-        <section class="facture-section" style="width: 100%">
-            <h2 style="text-align: center;">Détails de la facture</h2>
+        <section style="width: 100%">
+            <h2>Détails de la facture</h2>
             <!-- Tableau des produits/services -->
             <table>
                 <thead>
@@ -73,34 +62,22 @@
                     {% for orderItem in orderItems %}
                     {# {{ dump(orderItem) }} #}
                     <tr>
-                        <td style="text-align: left; padding-left: 10px;">{{ orderItem.product.name }}</td>
+                        <td>{{ orderItem.product.name }}</td>
                         <td>{{ orderItem.product.price }} €</td>
                         <td>{{ orderItem.quantity }}</td>
                         <td>{{ orderItem.totalPrice }} €</td>
                     </tr>
                     {% endfor %}
-                    <tr style="background-color: gray; color: white;">
-                        <td style="text-align: left; padding-left: 10px;">Frais de port</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ transporteur }} €</td>
-                    </tr>
-                    <tr style="background-color: gray; color: white;">
-                        <td style="text-align: left; padding-left: 10px;">Total TTC</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ totalPrice }} €</td>
-                    </tr>
                 </tbody>
             </table>
 
             <!-- Total de la facture -->
-            {# <div id="frais_de_port">
+            <div id="frais_de_port">
                 <p>Frais de port : {{ transporteur }} €</p>
             </div>
             <div id="total_price">
                 <p>Total TTC : {{ totalPrice }} €</p>
-            </div> #}
+            </div>
         </section>
     </main>
 

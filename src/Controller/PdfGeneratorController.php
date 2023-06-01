@@ -16,40 +16,46 @@ class PdfGeneratorController extends AbstractController
      * @Route("/pdf/generator/{id}", name="app_pdf_generator")
      */
     public function generateInvoice(
+        $id,
         OrderRepository $orderRepository, 
         AdressesRepository $adressesRepository, 
         OrderItemRepository $orderItemRepository
         ): Response
     {
         $user = $this->getUser();
-        $order = $orderRepository->find($user);
-        dd($user);
+        $order = $orderRepository->find($id);
         // $orderCreated = $order->getCreatedAt();
         // $formattedDate = $orderCreated->format('Y-m-d H:i:s');
         $user_lastname = $user->getLastname();
         $user_firstname = $user->getFirstname();
-        // $address = $order->getDeliveryAddress();
-        // $user_address = $adressesRepository->find($address);
-        // $user_address_rue = $user_address->getAdresse();
-        // $user_address_codepostal = $user_address->getPostalcode();
-        // $user_address_city = $user_address->getCity();
-        // $user_address_country = $user_address->getCountry();
+        $address = $order->getDeliveryAddress();
+        $user_address = $adressesRepository->find($address);
+        $user_address_rue = $user_address->getAdresse();
+        $user_address_codepostal = $user_address->getPostalcode();
+        $user_address_city = $user_address->getCity();
+        $user_address_country = $user_address->getCountry();
         $orderItems = $orderItemRepository->findBy(['order_id' => $order->getId()]);
+        // dd($user_address);
          
         $data = [
-            'imageSrc'  => $this->imageToBase64($this->getParameter('kernel.project_dir') . '/public/img/profile.png'),
-            'name'         => 'John Doe',
-            'address'      => 'USA',
+            // 'imageSrc'  => $this->imageToBase64($this->getParameter('kernel.project_dir') . '/public/img/profile.png'),
+            'name'         => $user_lastname. ' ' . $user_firstname,
+            'address_rue'      => $user_address_rue,
+            'address_code_postal'      => $user_address_codepostal,
+            'address_city'      => $user_address_city,
+            'address_country'      => $user_address_country,
             'mobileNumber' => '000000000',
-            'email'        => 'john.doe@email.com',
+            'email'        => $user->getUserIdentifier(),
             'orderItems' => $orderItems,
+            'transporteur' => $order->getDeliveryPrice(),
+            'totalPrice' => $order->getTotal(),
         ];
         $html =  $this->renderView('pdf_generator/index.html.twig', $data);
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html);
         $dompdf->render();
         return new Response (
-            $dompdf->stream('resume', ["Attachment" => false]),
+            $dompdf->stream('facture', ["Attachment" => false]),
             Response::HTTP_OK,
             ['Content-Type' => 'application/pdf']
         );

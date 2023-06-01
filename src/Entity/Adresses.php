@@ -192,4 +192,9 @@ class Adresses
 
         return $this;
     }
+
+    // public function __toString()
+    // {
+    //     return $this->adresse .'<br>' . $this->postalcode. '<br>' . $this->city .'<br>' . $this->country;
+    // }
 }

@@ -1190,6 +1190,11 @@ body {
 .btn-adress {
   width: 50%;
 }
+.bi-file-earmark-pdf {
+  color: black!important;
+  width: 50px;
+  
+}
 
 @media screen and (max-width:1000px) {
   .btn-adress {

@@ -38,6 +38,10 @@ class OrderController extends AbstractController
         }
         $user = $this->getUser();
         $adresses = $adressesRepository->findBy(['user' => $user]);
+        $session = $request->getSession();
+        $session->set('adresseDelivery', $adresses[0]->getId());
+        $adresseDelivery = $session->get('adresseDelivery');
+        // dd($adresseDelivery);
         $form = $this->createForm(OrderType::class, null, [
             'user' => $user,
         ]);

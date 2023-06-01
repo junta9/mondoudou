@@ -240,7 +240,7 @@
 										<td>{{ order.id }}</td>
 										<td>{{ order.status }}</td>
 										<td>{{ order.total }} €</td>
-										<td><a href="{{ path('app_pdf_generator', {id: order.id}) }}">Facture</a></td>
+										<td><a class="ps-3" target="_blank" href="{{ path('app_pdf_generator', {id: order.id}) }}"><i class="bi bi-file-earmark-pdf"></i></a></td>
 										<td>{{ order.getCreatedAt()|date('d/m/Y H:i:s') }}</td>
 									</tr>
 								{% endfor %}

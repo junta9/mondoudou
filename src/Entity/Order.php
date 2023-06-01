@@ -56,6 +56,11 @@ class Order
      */
     private $delivery_address;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $delivery_price;
+
     public function __construct()
     {
         $this->order_item = new ArrayCollection();
@@ -167,6 +172,18 @@ class Order
     public function setDeliveryAddress(string $delivery_address): self
     {
         $this->delivery_address = $delivery_address;
+
+        return $this;
+    }
+
+    public function getDeliveryPrice(): ?float
+    {
+        return $this->delivery_price;
+    }
+
+    public function setDeliveryPrice(float $delivery_price): self
+    {
+        $this->delivery_price = $delivery_price;
 
         return $this;
     }
