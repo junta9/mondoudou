@@ -225,7 +225,9 @@ button {
 @media screen and (max-width:768px) {
   .banner_bg_main {
   height: 30vh;
-
+  }
+  .box_main {
+    padding: 20px!important;
   }
 }
 
@@ -583,8 +585,8 @@ a:hover {
 .box_main {
   width: 100%;
   background-color: #ffffff;
-  height: 580px;
-  padding: 0 5px;
+  height: auto;
+  padding: 15px;
   box-shadow: 0px 0 30px 10px #f0f0f0;
   margin-bottom: 20px;
 }
@@ -610,7 +612,8 @@ a:hover {
   width: 100%;
   text-align: center;
   margin: 50px 0px;
-  min-height: 370px;
+  /* height: 370px; */
+  height: 250px;
 }
 .tshirt_img img {
   object-fit: cover;

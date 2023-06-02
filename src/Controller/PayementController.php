@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Entity\OrderItem;
+use App\Entity\Payment;
 use App\Repository\AdressesRepository;
 use App\Repository\OrderItemRepository;
 use App\Repository\OrderRepository;
@@ -118,10 +119,16 @@ class PayementController extends AbstractController
       
       
     }
-    // dd($transporteur);
+    // Create payment object
+    $payment = new Payment();
+    $payment->setOrderId($order);
+    $payment->setTotal($order->getTotal());
+    $payment->setCreatedAt(new \DateTimeImmutable());
+    // dd($payment);
     
     // Persist the Order entity and its associated OrderItems
     $em->persist($order);
+    $em->persist($payment);
     $em->flush();
     
     // remove session variables

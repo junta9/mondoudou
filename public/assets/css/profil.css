@@ -1195,6 +1195,9 @@ body {
   width: 50px;
   
 }
+tr.commande-deux {
+  display: none;
+}
 
 @media screen and (max-width:1000px) {
   .btn-adress {
@@ -1217,6 +1220,14 @@ body {
   }
   .bg-white.shadow {
     height: auto!important;
+  }
+}
+@media screen and (max-width: 375px) {
+  .commande-one {
+    display: none;
+  }
+  .commande-deux {
+    display: block!important;
   }
 }
 @media screen and (max-width: 320px) {

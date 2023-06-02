@@ -28,10 +28,6 @@ class Payment
      */
     private $total;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $status;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -68,18 +64,6 @@ class Payment
     public function setTotal(float $total): self
     {
         $this->total = $total;
-
-        return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
 
         return $this;
     }

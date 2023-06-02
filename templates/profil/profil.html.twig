@@ -226,22 +226,32 @@
 					<div class="row" style="margin-top: 50px;">
 						<table class="table">
 							<thead>
-								<tr>
+								<tr class="commande-one">
 									<th>ID</th>
 									<th>Status</th>
 									<th>Total</th>
 									<th>Facture</th>
 									<th>Date de création</th>
 								</tr>
+								<tr class="commande-deux w-100 ps-3">
+									<th class="col">ID</th>
+									<th class="col">Status</th>
+									<th class="col">Facture</th>
+								</tr>
 							</thead>
 							<tbody>
 								{% for order in orders %}
-									<tr>
+									<tr class="commande-one">
 										<td>{{ order.id }}</td>
 										<td>{{ order.status }}</td>
 										<td>{{ order.total }} €</td>
 										<td><a class="ps-3" target="_blank" href="{{ path('app_pdf_generator', {id: order.id}) }}"><i class="bi bi-file-earmark-pdf"></i></a></td>
-										<td>{{ order.getCreatedAt()|date('d/m/Y H:i:s') }}</td>
+										<td>{{ order.getCreatedAt()|date('d/m/Y') }}</td>
+									</tr>
+									<tr class="commande-deux w-100 ps-3">
+										<td class="col">{{ order.id }}</td>
+										<td class="col">{{ order.status }}</td>
+										<td class="col"><a class="ps-3" target="_blank" href="{{ path('app_pdf_generator', {id: order.id}) }}"><i class="bi bi-file-earmark-pdf"></i></a></td>
 									</tr>
 								{% endfor %}
 							</tbody>

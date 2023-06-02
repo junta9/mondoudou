@@ -63,4 +63,14 @@ class OrderRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findExo(): ?Order
+    {
+        return $this->createQueryBuilder('o')
+        ->select('o.facture_id, COUNT(o)')
+        ->groupBy('o.facture_id')
+        ->getQuery()
+        ->getResult();
+
+    }
 }

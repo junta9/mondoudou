@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\AdressesRepository;
 use App\Repository\OrderItemRepository;
 use App\Repository\OrderRepository;
+use App\Repository\PaymentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +20,8 @@ class PdfGeneratorController extends AbstractController
         $id,
         OrderRepository $orderRepository, 
         AdressesRepository $adressesRepository, 
-        OrderItemRepository $orderItemRepository
+        OrderItemRepository $orderItemRepository,
+        PaymentRepository $paymentRepository
         ): Response
     {
         $user = $this->getUser();
@@ -35,7 +37,8 @@ class PdfGeneratorController extends AbstractController
         $user_address_city = $user_address->getCity();
         $user_address_country = $user_address->getCountry();
         $orderItems = $orderItemRepository->findBy(['order_id' => $order->getId()]);
-        // dd($user_address);
+        $payment = $paymentRepository->findOneBy(['order_id' => $order->getId()]);
+        // dd($payment->getId());
          
         $data = [
             // 'imageSrc'  => $this->imageToBase64($this->getParameter('kernel.project_dir') . '/public/img/profile.png'),
@@ -49,6 +52,8 @@ class PdfGeneratorController extends AbstractController
             'orderItems' => $orderItems,
             'transporteur' => $order->getDeliveryPrice(),
             'totalPrice' => $order->getTotal(),
+            'commande' => $order->getId(),
+            'payment' => $payment->getId(),
         ];
         $html =  $this->renderView('pdf_generator/index.html.twig', $data);
         $dompdf = new Dompdf();

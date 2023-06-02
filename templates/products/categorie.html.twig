@@ -180,7 +180,7 @@
                 <h2 id='titre_peluche' class='text-center mt-5'>{{ category.name}}s</h2>
                 <div class="row row-cols-1 row-cols-md-3 row-cols-xl-3 justify-content-center mt-5">
                     {% for peluchePhoto in peluchesPhotos %}
-                    <div class="col-lg-4 col-sm-4">
+                    <div class="col-lg-4 col-sm-4 col-md-6">
                            <div class="card-index box_main">
                               <h4 class="shirt_text pt-2">{{ peluchePhoto.product.name }}</h4>
                               <p class="price_text">Prix <span style="color: black;font-weight: bold;">€ {{ peluchePhoto.product.price }}</span></p>
