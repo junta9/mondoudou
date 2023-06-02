@@ -175,8 +175,12 @@
                      
                               <div class="btn_main">
                                  {# <div class="buy_bt"><a href="{{ path("add_panier", {id: peluchesPhotos[index].product.id}) }}">Ajouter au panier</a></div> #}
-                                 <div class="buy_bt"><a class="add-to-cart" id="add" href="" data-id="{{ peluchesPhotos[index].product.id }}">Ajouter au panier</a></div>
-                                 <div class="seemore_bt"><a href="{{ path("app_product", {id: peluchesPhotos[index].product.id}) }}">Voir plus</a></div>
+                                 <div class="buy_bt">
+                                    <a class="add-to-cart" id="add" href="" data-id="{{ peluchesPhotos[index].product.id }}">Ajouter au panier</a>
+                                 </div>
+                                 <div class="seemore_bt">
+                                    <a href="{{ path("app_product", {id: peluchesPhotos[index].product.id}) }}">Voir plus</a>
+                                 </div>
                               </div>
                            </div>
                         </div>
@@ -271,8 +275,12 @@
                                  Produit ajouté au panier
                               </div>
                               <div class="btn_main">
-                                 <div class="buy_bt"><a class="add-to-cart" id="add" href="" data-id="{{ doudousPhotos[index].product.id }}">Ajouter au panier</a></div>
-                                 <div class="seemore_bt"><a href="{{ path("app_product", {id: doudousPhotos[index].product.id}) }}">Voir plus</a></div>
+                                 <div class="buy_bt">
+                                    <a class="add-to-cart" id="add" href="" data-id="{{ doudousPhotos[index].product.id }}">Ajouter au panier</a>
+                                 </div>
+                                 <div class="seemore_bt">
+                                    <a href="{{ path("app_product", {id: doudousPhotos[index].product.id}) }}">Voir plus</a>
+                                 </div>
                               </div>
                            </div>
                         </div>

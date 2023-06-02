@@ -631,6 +631,7 @@ a:hover {
 .buy_bt {
   float: left;
   width: 100%;
+  /* background-color: #f26522!important; */
 }
 
 .buy_bt a {
@@ -651,6 +652,8 @@ a:hover {
   width: 100%;
   float: right;
   text-align: right;
+  /* background-color: #5D3D29; */
+
 }
 
 .seemore_bt a {

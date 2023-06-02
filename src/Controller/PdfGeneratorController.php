@@ -41,7 +41,7 @@ class PdfGeneratorController extends AbstractController
         // dd($payment->getId());
          
         $data = [
-            // 'imageSrc'  => $this->imageToBase64($this->getParameter('kernel.project_dir') . '/public/img/profile.png'),
+            'imageSrc'  => $this->imageToBase64($this->getParameter('kernel.project_dir') . '/public/images/logo-mondoudou.png'),
             'name'         => $user_lastname. ' ' . $user_firstname,
             'address_rue'      => $user_address_rue,
             'address_code_postal'      => $user_address_codepostal,
