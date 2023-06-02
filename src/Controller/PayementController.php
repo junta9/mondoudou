@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Order;
 use App\Entity\OrderItem;
 use App\Entity\Payment;
@@ -136,8 +137,27 @@ class PayementController extends AbstractController
     $session->getSession()->remove('transporteur');
     $session->getSession()->remove('adresseDelivery');
 
+    if (isset($_SERVER['HTTPS']))
+    {
+      $protocol = "https://";
+    }
+    $protocol = "http://";
+    // on définit le nom du serveur de connexion 
+    // avec les variable global PHP de sorte de pouvoir gérer
+    // tout les environnements possible
+    $serveur = $_SERVER['SERVER_NAME'];
+    $YOUR_DOMAIN = $protocol . $serveur;
+    $profil = $YOUR_DOMAIN . '/profile';
+
+    $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
+    $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
+
     return $this->render(
-      "commande/success.html.twig"
+      "commande/success.html.twig", [
+        'profil' => $profil,
+        'peluchesCategory' => $peluchesCategory,
+        'doudousCategory' => $doudousCategory,
+      ]
     );
   }
 }
