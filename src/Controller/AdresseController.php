@@ -28,7 +28,7 @@ class AdresseController extends AbstractController
     /**
      * @Route("/adresse/new", name="adresse_new")
      */
-    public function new(Request $request, EntityManagerInterface $em)
+    public function new(SessionInterface $session, Request $request, EntityManagerInterface $em)
     {
         $adresse = new Adresses();
         $form = $this->createForm(AdresseType::class, $adresse);
@@ -41,13 +41,19 @@ class AdresseController extends AbstractController
             $adresse->setUser($user);
             $em->persist($adresse);
             $em->flush();
-            return $this->redirectToRoute('app_panier');
+            // return $this->redirectToRoute('app_panier');
+            $this->addFlash('success', 'Adresse ajouté avec succès.');
+            $currentRoute = $session->get('current_route');
+
+            return $this->redirectToRoute($currentRoute);
+
 
         }
 
-        return $this->render('adresse/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        // return $this->render('adresse/new.html.twig', [
+        // return $this->render('base.html.twig', [
+        //     'formAdresse' => $form->createView(),
+        // ]);
     }
     /**
      * @Route("/adresse/del/{id}", name="adresse_del")
@@ -58,6 +64,8 @@ class AdresseController extends AbstractController
         $adresse = $adressesRepository->find($id);
         $adressesRepository->remove($adresse);
         $em->flush();
+        $this->addFlash('success', 'Adresse supprimer avec succès.');
+
         return $this->redirectToRoute('app_profil');
     }
 }

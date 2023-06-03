@@ -115,6 +115,16 @@
 <section class="py-5 my-5">
 	<div class="container my-5">
 		<h1 class="my-5 pt-5 text-center text-uppercase fw-bold">Informations personnelles</h1>
+		{% for message in app.flashes('success') %}
+            <div class="alert alert-success text-center" id="flash-message">
+                {{ message }}
+            </div>
+        {% endfor %}
+		{% for message in app.flashes('error') %}
+            <div class="alert alert-danger text-center" id="flash-message">
+                {{ message }}
+            </div>
+        {% endfor %}
 		<div class="bg-white shadow rounded-lg d-block d-sm-flex" style="min-height: 400px;">
 			<div class="profile-tab-nav border-right">
 				<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -128,12 +138,12 @@
 						<i class="fa fa-file-text text-center mr-1"></i>
 						Adresses
 					</a>
-					<a class="nav-link" id="password-tab" data-toggle="pill" href="#order" role="tab"
+					<a class="nav-link" id="order-tab" data-toggle="pill" href="#order" role="tab"
 						aria-controls="order" aria-selected="false">
 						<i class="fa fa-file-text text-center mr-1"></i>
 						Mes commandes
 					</a>
-					<a class="nav-link" id="security-tab" data-toggle="pill" href="#password" role="tab"
+					<a class="nav-link" id="password-tab" data-toggle="pill" href="#password" role="tab"
 						aria-controls="password" aria-selected="false">
 						<i class="fa fa-key text-center mr-1"></i>
 						Mot de passe
@@ -185,8 +195,10 @@
 						<h5>Vous n'avez pas renseigner d'adresse de livraison, veuillez en ajouter une en appuyant
 							sur le bouton</h5>
 						<div class="my-3 text-center">
-							<a href="{{ path('adresse_new') }}" class="border-0 btn btn-dark w-50">+ Ajouter une
+							<a href="#" class="border-0 btn btn-dark w-50" data-bs-toggle="modal" data-bs-target="#joinModal2">+ Ajouter une
 								nouvelle adresse</a>
+							{# <a href="{{ path('adresse_new') }}" class="border-0 btn btn-dark w-50">+ Ajouter une
+								nouvelle adresse</a> #}
 						</div>
 					</div>
 					{% else %}
@@ -210,8 +222,10 @@
 						</div>
 						{% endfor %}
 						<div class="my-3 text-center w-100">
-							<a href="{{ path('adresse_new') }}" class="border-0 btn btn-dark btn-adress">+ Ajouter une
+							<a href="#" class="border-0 btn btn-dark btn-adress" data-bs-toggle="modal" data-bs-target="#joinModal2">+ Ajouter une
 								nouvelle adresse</a>
+							{# <a href="{{ path('adresse_new') }}" class="border-0 btn btn-dark btn-adress">+ Ajouter une
+								nouvelle adresse</a> #}
 						</div>
 					</div>
 					{% endif %}
@@ -260,35 +274,6 @@
 					{% endif %}
 				</div>
 				<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
-					{# <form action="{{ path('profil_user_update_password') }}" method="POST">
-						<h3 class="mb-4">Changer le mot de passe</h3>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Ancien mot de passe</label>
-									<input name="older-password" type="password" class="form-control" required>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Nouveau mot de passe</label>
-									<input name="new-password" type="password" class="form-control" required>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Confirmer le nouveau mot de passe</label>
-									<input name="re-new-password" type="password" class="form-control" required>
-								</div>
-							</div>
-						</div>
-						<div>
-							<button class="btn btn-primary">Update</button>
-							<button class="btn btn-light">Cancel</button>
-						</div>
-					</form> #}
 					<div class="d-flex flex-reverse px-1 w-100 form-mdp">
 					{{ form_start(formulaire) }}
 					{# {{ form_row(form.oldPassword) }} #}
@@ -301,6 +286,109 @@
 			</div>
 		</div>
 </section>
+{% block modal %}
+<div class="modal fade" id="joinModal2" tabindex="-1" role="dialog" aria-labelledby="joinModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="joinModalLabel2">
+                            Ajouter une adresse
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                            {# {% if app.flashes('success') %}
+                                <div class="alert alert-success">
+                                    {% for message in app.flashes('success') %}
+                                        {{ message }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            {% if app.flashes('error') %}
+                                <div class="alert alert-danger">
+                                    {% for message in app.flashes('error') %}
+                                        {{ message }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %} #}
+                    <div class="modal-body">
+                        <form action="{{ path('adresse_new') }}" method="POST">
+                            {{ form_start(formAdresse) }}
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.addressName) }}
+                                {{ form_widget(formAdresse.addressName, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.lastname) }}
+                                {{ form_widget(formAdresse.lastname, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.firstname) }}
+                                {{ form_widget(formAdresse.firstname, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.company) }}
+                                {{ form_widget(formAdresse.company, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.adresse) }}
+                                {{ form_widget(formAdresse.adresse, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.postalcode) }}
+                                {{ form_widget(formAdresse.postalcode, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.city) }}
+                                {{ form_widget(formAdresse.city, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.country) }}
+                                {{ form_widget(formAdresse.country, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.phone) }}
+                                {{ form_widget(formAdresse.phone, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <div class="d-flex w-100 justify-content-center mt-4">
+                                <button type="submit" class="btn btn-primary w-50">Submit</button>
+                            </div>
+
+                            {{ form_end(formAdresse) }}
+                            </div>
+                            {# <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Fermer
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    Envoyer le message
+                                </button>
+                            </div> #}
+                        </form>
+                </div>
+            </div>
+        </div>
+		<script>
+			setTimeout(function() {
+				const flashMessage = document.getElementById('flash-message');
+				if (flashMessage) {
+					//flashMessage.style.display = 'none';
+					flashMessage.classList.add('fade-out');
+				}
+			}, 5000); // Durée en millisecondes (ici, 5 secondes)
+		</script>
+{% endblock %}
 {% endblock %}
 {% block sticky_cart %}
 {% endblock %}

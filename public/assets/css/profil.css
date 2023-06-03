@@ -1199,6 +1199,12 @@ tr.commande-deux {
   display: none;
 }
 
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
+
+
 @media screen and (max-width:1000px) {
   .btn-adress {
     width: 100%;
