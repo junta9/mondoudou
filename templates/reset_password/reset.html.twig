@@ -9,10 +9,12 @@
 <div class="photo"></div>
 
 <form action="">
-    <h1>Reset your password</h1>
+    <h1 class="text-center">Réinitialisation du mot de passe</h1>
 
     {{ form_start(resetForm) }}
+    <div class="reset-width">
         {{ form_row(resetForm.plainPassword) }}
+    </div>
         <button class="btn btn-primary">Reset password</button>
     {{ form_end(resetForm) }}
 </form>

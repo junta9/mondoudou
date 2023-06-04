@@ -8,18 +8,18 @@
 {% block body %}
 <div class="photo"></div>
 {# <div class="container mail-request"> #}
-    {% for flash_error in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
 
    <div class="card-header">
    </div>
    <form action="{{ path('app_forgot_password_request') }}" method="POST">
+    {% for flash_error in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
     {{ form_start(requestForm) }}
       <h1 class="card-title text-center">Réinitialisation du mot de passe</h1>
-        <div class="card w-100">
+        <div class="card request-width">
             {# <div class="card-body p-5 d-flex flex-column"> #}
-            <div class="inputBox reset-email w-75">
+            <div class="inputBox reset-email">
                {# <label for="email">E-mail</label> #}
                {{ form_row(requestForm.email) }}
             </div>
