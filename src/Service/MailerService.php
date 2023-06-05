@@ -19,13 +19,13 @@ class MailerService {
     {
         $email = (new Email())
             ->from($mail)
-            ->to($mail)
+            ->to('info@mondoudou.org.fr')
             //->cc('cc@example.com')
             //->bcc('bcc@example.com')
             //->replyTo('fabien@example.com')
             //->priority(Email::PRIORITY_HIGH)
-            ->subject('Time for Symfony Mailer!')
-            ->text('Sending emails is fun again!')
+            ->subject('Message du site Mondoudou')
+            // ->text('Sending emails is fun again!')
             ->html($message);
 
         $this->mailer->send($email);

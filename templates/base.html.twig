@@ -206,11 +206,8 @@
                 </div>
             </div>
         </div>
-        
-        <div>
-            {# {{ render_esi(path('ch_cookie_consent.show')) }} #}
-            {# {{ render_esi(path('ch_cookie_consent.show_if_cookie_consent_not_set')) }} #}
-        </div>
+            {{ render_esi(path('ch_cookie_consent.show')) }}
+            {{ render_esi(path('ch_cookie_consent.show_if_cookie_consent_not_set')) }}
         {# <div class="modal fade" id="cookieModal" tabindex="-1" role="dialog" aria-labelledby="cookieModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">

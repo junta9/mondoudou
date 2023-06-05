@@ -2,7 +2,7 @@
 
 <p>Pour réinitialiser votre mot de passe, veuillez cliquer sur le lien suivant</p>
 
-<a href="http://localhost:8000{{ path('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
+<a href="http://localhost:8000{{ path('app_reset_password', {token: resetToken.token}) }}">Réinitialiser mot de passe</a>
 
 <p>Ce lien expire dans
 	{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>

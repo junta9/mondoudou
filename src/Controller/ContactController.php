@@ -23,7 +23,7 @@ class ContactController extends AbstractController
             $email = $request->request->get('email');
             $content = $request->request->get('message');
 
-            if (!empty($email) && !empty($message)) {
+            if (!empty($email) && !empty($content)) {
                 $data = [
                     // 'name' => $name,
                     'email' => $email,
@@ -31,10 +31,9 @@ class ContactController extends AbstractController
                 ];
 
                 $mailerService->sendEmail($data['email'], $data['content']);
-
+                $this->addFlash('success', 'Votre message a bien été envoyé !');
             }
-
-            $this->addFlash('success', 'Votre message a bien été envoyé !');
+            
             return $this->redirectToRoute('app_home');
         }
 
