@@ -34,7 +34,7 @@ class PhotosCrudController extends AbstractCrudController
             ImageField::new("imageName")
             ->setBasePath("public/images/photos")
             ->setUploadDir("public/images/photos")
-            ->setTemplatePath('photos.html.twig'),
+            ->setTemplatePath('admin/photos.html.twig')
             // CollectionField::new('imageName')
             //     ->setEntryType(PhotoType::class)
             //     ->setFormTypeOption('by_reference', false)

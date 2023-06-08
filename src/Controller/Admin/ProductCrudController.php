@@ -60,7 +60,7 @@ class ProductCrudController extends AbstractCrudController
             //->onlyOnDetail()
             ->hideOnForm()
             //->hideWhenUpdating()
-            ->setTemplatePath('product.html.twig'),
+            ->setTemplatePath('admin/product.html.twig'),
         ];
         return $fields;
     }
