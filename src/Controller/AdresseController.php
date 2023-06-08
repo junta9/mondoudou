@@ -39,13 +39,18 @@ class AdresseController extends AbstractController
             // Traitement de l'adresse ici, comme l'enregistrement dans la base de données
             $user = $this->getUser();
             $adresse->setUser($user);
+            $currentRoute = $session->get('current_route');
+            // dd($currentRoute);
             $em->persist($adresse);
             $em->flush();
             // return $this->redirectToRoute('app_panier');
             $this->addFlash('success', 'Adresse ajouté avec succès.');
-            $currentRoute = $session->get('current_route');
 
-            return $this->redirectToRoute($currentRoute);
+            if ($currentRoute){
+                return $this->redirectToRoute($currentRoute);
+            } else {
+                return $this->redirectToRoute('order_index');
+            }
 
 
         }

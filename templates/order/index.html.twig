@@ -72,8 +72,8 @@
     </div>
     <div class="col-md-6">
       <h3 class="my-3 text-center" style="border-bottom: 1px solid gray">Adresse de livraison</h3>
-      {% for adresse in adresses %}
       <form action="{{ path('order_delivery') }}" method="POST">
+      {% for adresse in adresses %}
         <div class="form-check">
           <input class="form-check-input" type="radio" name="adresse_id" id="{{ adresse.id }}" value="{{ adresse.id }}"
             required checked>
@@ -84,11 +84,11 @@
             {{ adresse.country }}
           </label>
         </div>
+      {% endfor %}
         <button class="btn-dark" type="submit">Enregistrer</button>
       </form>
-      {% endfor %}
       <div class="my-3 add-add">
-        <a href="{{ path("adresse_new") }}" class="border-0 btn btn-primary w-50" id="add-address">+ Ajouter une nouvelle adresse</a>
+        <a href="" class="border-0 btn btn-primary w-50" id="add-address" data-bs-toggle="modal" data-bs-target="#joinModal2">+ Ajouter une nouvelle adresse</a>
       </div>
     </div>
     <div class="col-12 summary">
@@ -144,6 +144,98 @@
     </div>
     {% endif %}
   </div>
+</div>
+<div class="modal fade" id="joinModal2" tabindex="-1" role="dialog" aria-labelledby="joinModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="joinModalLabel2">
+                            Ajouter une adresse
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                            {# {% if app.flashes('success') %}
+                                <div class="alert alert-success">
+                                    {% for message in app.flashes('success') %}
+                                        {{ message }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            {% if app.flashes('error') %}
+                                <div class="alert alert-danger">
+                                    {% for message in app.flashes('error') %}
+                                        {{ message }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %} #}
+                    <div class="modal-body">
+                        <form action="{{ path('adresse_new') }}" method="POST">
+                            {{ form_start(formAdresse) }}
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.addressName) }}
+                                {{ form_widget(formAdresse.addressName, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.lastname) }}
+                                {{ form_widget(formAdresse.lastname, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.firstname) }}
+                                {{ form_widget(formAdresse.firstname, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.company) }}
+                                {{ form_widget(formAdresse.company, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.adresse) }}
+                                {{ form_widget(formAdresse.adresse, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.postalcode) }}
+                                {{ form_widget(formAdresse.postalcode, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.city) }}
+                                {{ form_widget(formAdresse.city, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.country) }}
+                                {{ form_widget(formAdresse.country, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_label(formAdresse.phone) }}
+                                {{ form_widget(formAdresse.phone, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <div class="d-flex w-100 justify-content-center mt-4">
+                                <button type="submit" class="btn btn-primary w-50">Submit</button>
+                            </div>
+
+                            {{ form_end(formAdresse) }}
+                            </div>
+                            {# <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Fermer
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    Envoyer le message
+                                </button>
+                            </div> #}
+                        </form>
+                </div>
+            </div>
 </div>
 <style>
   #infos {

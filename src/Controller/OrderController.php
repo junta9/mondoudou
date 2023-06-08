@@ -6,6 +6,7 @@ use App\Entity\Adresses;
 use App\Entity\Category;
 use App\Entity\Transporteur;
 use App\Entity\User;
+use App\Form\AdresseType;
 use App\Form\OrderType;
 use App\Form\TransporteurType;
 use App\Repository\AdressesRepository;
@@ -17,12 +18,25 @@ use Doctrine\ORM\EntityManagerInterface;
 use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class OrderController extends AbstractController
 {
+
+    private $router;
+    private $session;
+    private $requestStack;
+
+    public function __construct(RequestStack $requestStack, RouterInterface $router)
+    {
+        $this->router = $router;
+        // $this->session = $session;
+        $this->requestStack = $requestStack;
+    }
     /**
      * @Route("/order/view", name="order_index")
      */
@@ -63,6 +77,16 @@ class OrderController extends AbstractController
         $totalQuantity = $cartService->getTotalQuantity();
 
         $deliverys = $transporteurRepository->findAll();
+        $adresse = new Adresses();
+        $formAdresse = $this->createForm(AdresseType::class, $adresse);
+
+        if($formAdresse->isSubmitted() && $formAdresse->isValid())
+        {
+            // Store the current path in the session
+            $currentRoute = $this->router->match($this->requestStack->getCurrentRequest()->getPathInfo())['_route'];
+            $session->set('current_route', $currentRoute);
+        }
+
         return $this->render('order/index.html.twig', [
             'controller_name' => 'OrderController',
             'form' => $form->createView(),
@@ -74,6 +98,7 @@ class OrderController extends AbstractController
             'user' => $user,
             'adresses' => $adresses,
             'deliverys' => $deliverys,
+            'formAdresse' => $formAdresse->createView(),
             
         ]);
     }
