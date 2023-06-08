@@ -26,12 +26,12 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        
+        return $this->render('admin/dashboard.html.twig');
         // return parent::index();
         // redirect to some CRUD controller
-        $routeBuilder = $this->get(AdminUrlGenerator::class);
+        // $routeBuilder = $this->get(AdminUrlGenerator::class);
 
-        return $this->redirect($routeBuilder->setController(ProductCrudController::class)->generateUrl());
+        // return $this->redirect($routeBuilder->setController(ProductCrudController::class)->generateUrl());
     }
 
     public function configureDashboard(): Dashboard
@@ -44,12 +44,12 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Categories', 'fas fa-list', Category::class);
-        yield MenuItem::linkToCrud('Transporteurs', 'fas fa-list', Transporteur::class);
-        yield MenuItem::linkToCrud('Produits', 'fas fa-list', Product::class);
-        yield MenuItem::linkToCrud('Photos', 'fas fa-list', Photos::class);
-        yield MenuItem::linkToCrud('Commandes', 'fas fa-list', Order::class);
-        yield MenuItem::linkToCrud('Commandes produits', 'fas fa-list', OrderItem::class);
-        yield MenuItem::linkToCrud('Utilisateur', 'fas fa-list', User::class);
-        yield MenuItem::linkToCrud('Messages', 'fas fa-list', Messages::class);
+        yield MenuItem::linkToCrud('Transporteurs', 'fa fa-truck', Transporteur::class);
+        yield MenuItem::linkToCrud('Produits', 'fab fa-product-hunt', Product::class);
+        yield MenuItem::linkToCrud('Photos', 'fa fa-image', Photos::class);
+        yield MenuItem::linkToCrud('Commandes', 'fa fa-shopping-cart', Order::class);
+        yield MenuItem::linkToCrud('Commandes produits', 'fa fa-cart-plus', OrderItem::class);
+        yield MenuItem::linkToCrud('Utilisateur', 'fa fa-user', User::class);
+        yield MenuItem::linkToCrud('Messages', 'fa fa-envelope-open-text', Messages::class);
     }
 }
