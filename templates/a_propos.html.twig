@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style-2.css') }}">
+{% endblock %}
+{% block header %}
+	<!-- banner bg main start -->
+	<div
+		class="banner_bg_main">
+		<!-- header top section start -->
+		<div class="container">
+			<div class="header_section_top">
+				<div class="row">
+					<div class="col-sm-12">
+
+						<div class="logo_section">
+							<div class="container">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="logo">
+											<a href="{{ path("app_home") }}" id="logo_title">Mondoudou</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="header_section">
+							<div class="container">
+								<div class="containt_main">
+
+									<span class="toggle_icon" onclick="openNav()"><img src="{{ asset('assets/images/toggle-icon.png') }}" alt=""></span>
+
+									<div
+										class="main">
+										<!-- Another variation with a button -->
+										<div class="input-group">
+											<form class="d-flex w-100 search-form" method="get" action="{{ path('app_search') }}" onsubmit="return validateSearchForm()">
+												<input type="text" class="form-control" placeholder="Rechercher un produit" name="searchTerm" id="searchTerm">
+												<div class="input-group-append">
+													<button class="btn btn-secondary" type="submit" style="background-color: #5D3D29; border: none;">
+														<i class="fa fa-search"></i>
+													</button>
+												</div>
+											</form>
+										</div>
+										{# <div class="logo"><a href="{{ path("app_home") }}" id="logo_title">Mondoudou</a>
+																													</div> #}
+
+									</div>
+									<div class="header_box">
+										<div class="login_menu">
+											<ul>
+												<li>
+													<a href="{{ path('app_panier') }}">
+														{% if app.session.get('panier') is not empty %}
+															<span id="cart_items_count" class="badge badge-pill badge-danger">{{
+														app.session.get('panier')|length }}</span>
+															{# <span id="cart_items_count"
+																																												class="badge badge-pill badge-danger"></span> #}
+														{% endif %}
+														<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+														<span id="custom_link" class="padding_10">Panier</span>
+													</a>
+												</li>
+												{# <li>
+																																				<a href="{{ path('app_panier') }}">
+																																					<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+																																					<span id="custom_link" class="padding_10">Panier</span></a>
+																																			</li> #}
+												{% if is_granted('ROLE_USER') %}
+													<li>
+														<a href="{{ path("app_profil") }}">
+															<i class="fa fa-user" aria-hidden="true"></i>
+															<span id="custom_link" class="padding_10">Compte</span>
+														</a>
+													</li>
+													<li>
+														<a href="{{ path('app_logout') }}">
+															<i class="fa fa-user" aria-hidden="true"></i>
+															<span id="custom_link" class="padding_10">Deconnexion</span>
+														</a>
+													</li>
+												{% else %}
+													<li>
+														<a href="{{ path('app_login') }}">
+															<i class="fa fa-user" aria-hidden="true"></i>
+															<span id="custom_link" class="padding_10">Se connecter</span>
+														</a>
+													</li>
+												{% endif %}
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="mySidenav" class="sidenav">
+				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+				<a href="{{ path("app_home") }}">Home</a>
+				<a href="{{ path("app_category", {id: peluchesCategory.id}) }}">Peluches</a>
+				<a href="{{ path("app_category", {id: doudousCategory.id}) }}">Doudous</a>
+				<a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#joinModal1">Contact</a>
+			</div>
+
+		</div>
+	</div>
+
+{% endblock %}
+{% block body %}
+	<section class="container-fluid m-5 p-1 d-flex flex-column w-100 align-items-center section">
+		<div class="mt-5 text-uppercase fw-bold">
+			<h1 class="text-center">A propos de nous</h1>
+		</div>
+		<div class="section-text">
+			<p>
+				Bienvenue sur notre site ! Nous sommes nés de l'expérience personnelle de la perte du doudou de notre enfant, et nous comprenons à quel point cette situation peut être stressante et bouleversante pour les parents. C'est pourquoi nous avons créé ce site avec pour vocation d'aider les parents à retrouver les doudous perdus de leurs tout-petits.<br><br>
+				Chez nous, nous savons que les doudous sont bien plus que de simples jouets. Ils sont les compagnons fidèles de nos enfants, leur source de réconfort et de sécurité. C'est pourquoi nous mettons tout en œuvre pour vous offrir une large sélection de doudous, répondant à tous les goûts et tous les besoins.<br><br>
+				Nous proposons des doudous neufs de marques reconnues, pour ceux qui préfèrent offrir à leur enfant un doudou flambant neuf et tout doux. Nous comprenons également que chaque doudou a une histoire unique et une valeur sentimentale, c'est pourquoi nous avons aussi des doudous d'occasion soigneusement sélectionnés et nettoyés. Ces doudous d'occasion sont prêts à être adoptés par de nouveaux enfants, leur offrant ainsi une seconde vie pleine d'amour.<br><br>
+				La satisfaction de nos clients est notre priorité absolue. Nous mettons tout en œuvre pour vous offrir une expérience d'achat agréable et sécurisée. Notre équipe est passionnée par ce que nous faisons, et nous sommes là pour vous aider à retrouver le doudou perdu de votre enfant ou à vous guider dans le choix du doudou parfait.<br><br>
+				Nous comprenons que chaque minute compte lorsque vous recherchez le doudou précieux de votre enfant, c'est pourquoi nous nous engageons à traiter chaque commande avec diligence et à expédier rapidement vos doudous, afin de les réunir avec leurs propriétaires le plus vite possible.<br><br>
+				Nous sommes ravis de faire partie de votre parcours pour retrouver le doudou perdu. Si vous avez des questions, des préoccupations ou simplement besoin de parler à quelqu'un, n'hésitez pas à nous contacter. Nous sommes là pour vous aider et vous accompagner dans cette recherche importante.<br><br>
+				Merci de votre confiance et de nous permettre de jouer un rôle dans l'histoire de votre enfant. Nous espérons que vous trouverez le doudou parfait sur notre site et que nous pourrons apporter un peu de bonheur et de soulagement à votre famille.<br><br>
+				
+				L'équipe de Mondoudou
+
+			</p>
+		</div>
+	</section>
+{% endblock %}

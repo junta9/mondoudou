@@ -207,7 +207,20 @@ class HomeController extends AbstractController
     {
         $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
         $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
-        return $this->render('politique-cookies.html.twig', [
+        return $this->render('mentions_legales.html.twig', [
+            'controller_name' => 'HomeController',
+            'peluchesCategory' => $peluchesCategory,
+            'doudousCategory' => $doudousCategory,
+        ]);
+    }
+    /**
+     * @Route("whataboutus", name="a_propos")
+     */
+    public function viewWhatAboutUs(EntityManagerInterface $em)
+    {
+        $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
+        $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
+        return $this->render('a_propos.html.twig', [
             'controller_name' => 'HomeController',
             'peluchesCategory' => $peluchesCategory,
             'doudousCategory' => $doudousCategory,
