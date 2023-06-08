@@ -10,6 +10,8 @@ use App\Entity\Photos;
 use App\Entity\Product;
 use App\Entity\Transporteur;
 use App\Entity\User;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -21,12 +23,18 @@ use Vich\UploaderBundle\Entity\File;
 
 class DashboardController extends AbstractDashboardController
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager){
+        $this->entityManager = $entityManager;
+    }
     /**
      * @Route("/admin", name="admin")
      */
     public function index(): Response
     {
-        return $this->render('admin/dashboard.html.twig');
+        return $this->statistics();
+        // return $this->render('admin/dashboard.html.twig');
         // return parent::index();
         // redirect to some CRUD controller
         // $routeBuilder = $this->get(AdminUrlGenerator::class);
@@ -51,5 +59,18 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Commandes produits', 'fa fa-cart-plus', OrderItem::class);
         yield MenuItem::linkToCrud('Utilisateur', 'fa fa-user', User::class);
         yield MenuItem::linkToCrud('Messages', 'fa fa-envelope-open-text', Messages::class);
+        yield MenuItem::linkToRoute('Retour sur le site', 'fa fa-home', 'app_home');
+    }
+
+    public function statistics(){
+
+        $users = $this->entityManager->getRepository(User::class)->findAll();
+        $orders = $this->entityManager->getRepository(Order::class)->findAll();
+        // $ales = $this->entityManager->getRepository('order')->find;
+
+        return $this->render('admin/dashboard.html.twig', [
+            'users' => count($users),
+            'orders' => count($orders),
+        ]);
     }
 }

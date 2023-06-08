@@ -1,6 +1,42 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
-{% block main %}
 
+{% block main %}
+	<div style="width: 50%">
+		<canvas id="myChart"></canvas>
+	</div>
 {% endblock %}
 
+{% block javascripts %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.umd.js" integrity="sha512-CMF3tQtjOoOJoOKlsS7/2loJlkyctwzSoDK/S40iAB+MqWSaf50uObGQSk5Ny/gfRhRCjNLvoxuCvdnERU4WGg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Nouveaux clients', 'Commandes passées'],
+      datasets: [{
+        label: 'Statistiques du mois',
+        data: [{{ users }}, {{ orders }}],
+        backgroundColor: [
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        ],
+        borderColor: [
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}
