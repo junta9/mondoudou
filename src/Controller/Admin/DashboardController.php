@@ -32,9 +32,8 @@ class DashboardController extends AbstractDashboardController
      * @Route("/admin", name="admin")
      */
     public function index(): Response
-    {
+    {   
         return $this->statistics();
-        // return $this->render('admin/dashboard.html.twig');
         // return parent::index();
         // redirect to some CRUD controller
         // $routeBuilder = $this->get(AdminUrlGenerator::class);
