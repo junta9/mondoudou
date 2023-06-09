@@ -65,11 +65,16 @@ class DashboardController extends AbstractDashboardController
 
         $users = $this->entityManager->getRepository(User::class)->findAll();
         $orders = $this->entityManager->getRepository(Order::class)->findAll();
-        // $ales = $this->entityManager->getRepository('order')->find;
+
+        $sales = 0;
+        foreach ($orders as $order) { 
+            $sales += $order->getTotal();
+        }
 
         return $this->render('admin/dashboard.html.twig', [
             'users' => count($users),
             'orders' => count($orders),
+            'sales' => $sales,
         ]);
     }
 }
