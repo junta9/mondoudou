@@ -12,9 +12,9 @@
         {% block redirect %}
         {% endblock %}
         <meta name="keywords" content="">
-        <meta name="description" content="">
+        <meta name="description" content="Site de vente de doudous et peluches neufs et d'occasions">
         <meta name="author" content="">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Mondoudou{% endblock %}</title>
         {# <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"> #}
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         <link rel="stylesheet" href="{{ asset('assets/css/toastr.css') }}">
@@ -62,19 +62,6 @@
         {% block header %}{% endblock %}
         {% block body %}{% endblock %}
         {% block footer %}
-        <!-- footer section start -->
-        <!-- <div class="footer_section layout_padding">
-            <div class="container">
-                <div class="footer_logo"><a id="logo_title" href="index.html">Mondoudou</a></div>
-                <div class="input_bt">
-                    <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
-                    <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
-                </div>
-                <div class="location_main">Help Line Number : <a href="#">+1 1800 1200 1200</a></div>
-            </div>
-        </div> -->
-        <!-- footer section end -->
-        <!-- copyright section start -->
         {% block consent_banner %}
             {% if not app.request.cookies.has('consent') %}
                 {# {% include 'consent_banner.html.twig' %} #}
@@ -208,47 +195,7 @@
         </div>
             {# {{ render_esi(path('ch_cookie_consent.show')) }} #}
             {{ render_esi(path('ch_cookie_consent.show_if_cookie_consent_not_set')) }}
-        {# <div class="modal fade" id="cookieModal" tabindex="-1" role="dialog" aria-labelledby="cookieModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="cookieModalLabel">Préférences de cookies</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Contenu de la fenêtre modale -->
-                        <p>Personnalisez vos préférences de cookies :</p>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="analyticsCheckbox" checked>
-                            <label class="form-check-label" for="analyticsCheckbox">
-                                Cookies d'analyse
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="marketingCheckbox" checked>
-                            <label class="form-check-label" for="marketingCheckbox">
-                                Cookies de marketing
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="functionalCheckbox" checked>
-                            <label class="form-check-label" for="functionalCheckbox">
-                                Cookies fonctionnels
-                            </label>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <button type="button" class="btn btn-primary" id="savePreferencesButton">Enregistrer</button>
-                    </div>
-                </div>
-            </div>
-        </div> #}
         {% endblock %}
-        {# {% block modal %}
-        {% endblock %} #}
 
         {% block javascriptsBottom %}
         <!-- Javascript files-->
