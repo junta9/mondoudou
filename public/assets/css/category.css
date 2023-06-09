@@ -904,6 +904,14 @@ input.mail_bt::placeholder {
 .footer_menu li a:hover {
   color: #f26522;
 }
+@media screen and (max-width: 426px) {
+  .footer-link ul {
+    flex-wrap: wrap;
+  }
+  .footer-link a {
+    font-size: 0.8em;
+  }
+}
 
 .location_main {
   width: 100%;
@@ -1163,9 +1171,6 @@ input.mail_bt::placeholder {
 }
 
 @media screen and (max-width: 426px) {
-  .containt_main {
-    flex-direction: column!important;
-  }
   .main {
     margin: 20px 0!important;
   }
