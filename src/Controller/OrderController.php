@@ -42,6 +42,8 @@ class OrderController extends AbstractController
      */
     public function index(SessionInterface $session,CartService $cartService, AdressesRepository $adressesRepository, TransporteurRepository $transporteurRepository, Request $request): Response
     {
+
+        //if cart is empty, redirect to home page
         if(empty($cartService->show())){
             return $this->redirectToRoute('app_home');
         }
@@ -50,6 +52,8 @@ class OrderController extends AbstractController
         {
             return $this->redirectToRoute("app_login");
         }
+
+        //Recuperation des données pour creation de la commande
         $user = $this->getUser();
         $adresses = $adressesRepository->findBy(['user' => $user]);
         $session = $request->getSession();
@@ -106,7 +110,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/order/delivery", name="order_delivery")
      */
-    public function votreAction(Request $request)
+    public function setDelivery(Request $request)
     {
         // Récupérer l'identifiant de l'adresse sélectionnée
         $adresseDelivery = $request->request->get('adresse_id');

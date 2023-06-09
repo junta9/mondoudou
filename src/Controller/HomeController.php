@@ -227,5 +227,24 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("analytics", name="analytics")
+     */
+    public function viewAnalytics(){
+
+        if (isset($_SERVER['HTTPS']))
+        {
+          $protocol = "https://";
+        }
+        $protocol = "http://";
+        // on définit le nom du serveur de connexion 
+        // avec les variable global PHP de sorte de pouvoir gérer
+        // tout les environnements possible
+        $serveur = $_SERVER['SERVER_NAME'];
+        $YOUR_DOMAIN = $protocol . $serveur;
+    
+        return $YOUR_DOMAIN . '/analytics';
+    }
+
 
 }

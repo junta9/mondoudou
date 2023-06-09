@@ -24,6 +24,8 @@ class PdfGeneratorController extends AbstractController
         PaymentRepository $paymentRepository
         ): Response
     {
+
+        //Recuperation des données de la commande
         $user = $this->getUser();
         $order = $orderRepository->find($id);
         // $orderCreated = $order->getCreatedAt();
@@ -39,7 +41,9 @@ class PdfGeneratorController extends AbstractController
         $orderItems = $orderItemRepository->findBy(['order_id' => $order->getId()]);
         $payment = $paymentRepository->findOneBy(['order_id' => $order->getId()]);
         // dd($payment->getId());
-         
+
+
+        //Injection des données dans la variable data 
         $data = [
             'imageSrc'  => $this->imageToBase64($this->getParameter('kernel.project_dir') . '/public/images/logo-mondoudou.png'),
             'name'         => $user_lastname. ' ' . $user_firstname,

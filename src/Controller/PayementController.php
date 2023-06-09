@@ -104,7 +104,7 @@ class PayementController extends AbstractController
     foreach ($panier as $key => $quantity)
     {
       $product = $productRepository->find($key);
-      // $product = $this->entityManager->getRepository(Product::class)->find($orderItemData['productId']);
+
       // Create a new OrderItem entity for each item
       $orderItem = new OrderItem();
       // dd($product);

@@ -39,13 +39,13 @@ class AdresseController extends AbstractController
             // Traitement de l'adresse ici, comme l'enregistrement dans la base de données
             $user = $this->getUser();
             $adresse->setUser($user);
-            $currentRoute = $session->get('current_route');
-            // dd($currentRoute);
             $em->persist($adresse);
             $em->flush();
-            // return $this->redirectToRoute('app_panier');
             $this->addFlash('success', 'Adresse ajouté avec succès.');
-
+            
+            //Récuperation de la variable qui à été enregistrer dans le profilController
+            //Si null renvoi vers order_index
+            $currentRoute = $session->get('current_route');
             if ($currentRoute){
                 return $this->redirectToRoute($currentRoute);
             } else {
@@ -54,11 +54,6 @@ class AdresseController extends AbstractController
 
 
         }
-
-        // return $this->render('adresse/new.html.twig', [
-        // return $this->render('base.html.twig', [
-        //     'formAdresse' => $form->createView(),
-        // ]);
     }
     /**
      * @Route("/adresse/del/{id}", name="adresse_del")

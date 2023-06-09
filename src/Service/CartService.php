@@ -24,6 +24,8 @@ class CartService {
         $this->photosRepository = $photosRepository;
     }
 
+
+    //Recupere le panier de la session et injecter dans la variable panierWidthDatas qui est un tableau
     public function show(){
         $panier = $this->session->get('panier', []);
         $panierWithDatas = [];
@@ -38,6 +40,7 @@ class CartService {
         return $panierWithDatas;
     }
 
+    //Recupere le prix total du panier
     public function getTotalPrice(){
         $panierWithDatas = $this->show();
         $total = 0;
@@ -50,6 +53,7 @@ class CartService {
         return $total;
     }
 
+    //Recupere le nombre de produits total dans le panier
     public function getTotalQuantity(){
         $panierWithDatas = $this->show();
         $totalQuantity = 0;
@@ -62,6 +66,7 @@ class CartService {
 
     }
 
+    //Ajouter un produit dans le panier
     public function add($id)
     {
         $panier = $this->session->get('panier', []);
@@ -81,6 +86,7 @@ class CartService {
         $this->session->set('panier', $panier);
     }
 
+    //Retirer un produit du panier
     public function remove($id)
     {
         $panier = $this->session->get('panier', []);
@@ -92,6 +98,7 @@ class CartService {
         $this->session->set('panier', $panier);
     }
 
+    //Retire tout les produits du panier
     public function removeAll()
     {
         $panier = $this->session->get('panier', []);
