@@ -28,7 +28,7 @@ class PhotosCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
 
-        return [
+        $fields = [
             IdField::new('id')->onlyOnIndex(),
             AssociationField::new('product'),
             ImageField::new("imageName")
@@ -45,6 +45,7 @@ class PhotosCrudController extends AbstractCrudController
             //     ->setTemplatePath('photos.html.twig'),
             
         ];
+        return $fields;
     }
 
     public function configureActions(Actions $actions): Actions

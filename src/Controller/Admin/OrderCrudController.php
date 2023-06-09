@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Order;
 use Dompdf\Adapter\PDFLib;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -44,7 +45,7 @@ class OrderCrudController extends AbstractCrudController
             DateField::new('created_at')->hideOnForm(),
             DateField::new('updated_at')->hideOnIndex(),
             Field::new('invoice')->hideWhenUpdating()
-                ->setTemplatePath('pdf.html.twig'),
+            ->setTemplatePath('admin/pdf.html.twig'),
             
         ];
     }
