@@ -243,7 +243,7 @@ class HomeController extends AbstractController
         $serveur = $_SERVER['SERVER_NAME'];
         $YOUR_DOMAIN = $protocol . $serveur;
     
-        return $YOUR_DOMAIN . '/analytics';
+        return $this->redirect($YOUR_DOMAIN . '/analytics');
     }
 
 
