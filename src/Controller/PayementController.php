@@ -78,12 +78,8 @@ class PayementController extends AbstractController
    * @Route("/profile/commande/success", name="app_commande_sucess")
    */
   public function success(
-    // FactureRepository $factureRepository,
     RequestStack $session,
-    AdressesRepository $adressesRepository,
     ProductRepository $productRepository,
-    OrderRepository $orderRepository,
-    OrderItemRepository $orderItemRepository,
     CartService $cartService,
     EntityManagerInterface $em
   ): Response
@@ -98,7 +94,6 @@ class PayementController extends AbstractController
     $order->setStatus('En attente'); // Set the initial status of the order
     $order->setCreatedAt(new \DateTimeImmutable());
     $order->setDeliveryPrice($transporteur);
-    // dd($adresseDelivery);
     $order->setDeliveryAddress($adresseDelivery);
 
     foreach ($panier as $key => $quantity)
@@ -107,10 +102,8 @@ class PayementController extends AbstractController
 
       // Create a new OrderItem entity for each item
       $orderItem = new OrderItem();
-      // dd($product);
       $orderItem->setOrderId($order);
       $orderItem->setProduct($product);
-      // $orderItem->setQuantity($key['quantity']);
       $orderItem->setQuantity($quantity);
       $orderItem->setPrice($product->getPrice()); // Assuming the price is stored in the Product entity
       $totalPrice = $orderItem->getPrice() * $orderItem->getQuantity();
@@ -125,7 +118,6 @@ class PayementController extends AbstractController
     $payment->setOrderId($order);
     $payment->setTotal($order->getTotal());
     $payment->setCreatedAt(new \DateTimeImmutable());
-    // dd($payment);
     
     // Persist the Order entity and its associated OrderItems
     $em->persist($order);

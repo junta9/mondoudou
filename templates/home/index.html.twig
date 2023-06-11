@@ -162,19 +162,17 @@
                      <div class="row">
                      {% set randomIndexes = peluchesPhotos|keys|sort|slice(0, 3) %}
                      {% for index in randomIndexes %}
-                     {# {% for photo in photos %} #}
                         <div class="col-lg-4 col-sm-4">
                            <div class="card-index box_main">
                               <h4 class="shirt_text">{{ peluchesPhotos[index].product.name }}</h4>
                               <p class="price_text">Prix <span style="color: #262626;">€ {{ peluchesPhotos[index].product.price }}</span></p>
                               <div class="tshirt_img"><img class="img-fluid" src="images/photos/{{ peluchesPhotos[index].imageName }}" alt="{{ peluchesPhotos[index].product.name }}" style="max-height: 260px"></div>
-                              {# message de notifications #}
+                              {# message de notification #}
                               <div id="notification" class="alert alert-success " role="alert" style="display:none;">
                                  Produit ajouté au panier
                               </div>
                      
                               <div class="btn_main">
-                                 {# <div class="buy_bt"><a href="{{ path("add_panier", {id: peluchesPhotos[index].product.id}) }}">Ajouter au panier</a></div> #}
                                  <div class="buy_bt">
                                     <a class="add-to-cart" id="add" href="" data-id="{{ peluchesPhotos[index].product.id }}">Ajouter au panier</a>
                                  </div>
@@ -184,7 +182,6 @@
                               </div>
                            </div>
                         </div>
-                     {# {% endfor %} #}
                      {% endfor %}
                      </div>
                   </div>

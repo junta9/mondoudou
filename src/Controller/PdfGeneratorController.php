@@ -51,7 +51,6 @@ class PdfGeneratorController extends AbstractController
             'address_code_postal'      => $user_address_codepostal,
             'address_city'      => $user_address_city,
             'address_country'      => $user_address_country,
-            'mobileNumber' => '000000000',
             'email'        => $user->getUserIdentifier(),
             'orderItems' => $orderItems,
             'transporteur' => $order->getDeliveryPrice(),
