@@ -32,4 +32,17 @@ class MailerService {
 
         // ...
     }
+
+    public function replyMessageSend($mail){
+
+        $message = "Nous avons bien recu votre message, nous vous repondrons dans les plus bref délai.";
+
+        $email = (new Email())
+            ->from('contact@mondoudou.org')
+            ->to($mail)
+            ->subject('Bonne reception de votre message')
+            ->html($message);
+
+        $this->mailer->send($email);
+    }
 }

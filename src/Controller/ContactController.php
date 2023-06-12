@@ -31,6 +31,7 @@ class ContactController extends AbstractController
                 ];
 
                 $mailerService->sendEmail($data['email'], $data['content']);
+                $mailerService->replyMessageSend($email);
                 $this->addFlash('success', 'Votre message a bien été envoyé !');
             }
             
