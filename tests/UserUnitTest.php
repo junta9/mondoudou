@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class UserUnitTest extends TestCase
 {
-    //function uni-test is true
+    //function unit-test is true
     public function testIsTRue()
     {
         $user = new User();

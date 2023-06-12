@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="app_home")
+     * @Route("/", name="app_home", defaults={"_public_access": true})
      */
     public function index(EntityManagerInterface $em): Response
     {
@@ -162,7 +162,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("politique_cookie", name="politique_cookie")
+     * @Route("politique_cookie", name="politique_cookie", defaults={"_public_access": true})
      */
     public function viewPoliticCookies(EntityManagerInterface $em)
     {
@@ -175,7 +175,7 @@ class HomeController extends AbstractController
         ]);
     }
     /**
-     * @Route("cgv", name="cgv")
+     * @Route("cgv", name="cgv", defaults={"_public_access": true})
      */
     public function viewCgv(EntityManagerInterface $em)
     {
@@ -188,7 +188,7 @@ class HomeController extends AbstractController
         ]);
     }
     /**
-     * @Route("cgu", name="cgu")
+     * @Route("cgu", name="cgu", defaults={"_public_access": true})
      */
     public function viewCgu(EntityManagerInterface $em)
     {
@@ -201,7 +201,7 @@ class HomeController extends AbstractController
         ]);
     }
     /**
-     * @Route("mentions-legales", name="mentions_legales")
+     * @Route("mentions-legales", name="mentions_legales", defaults={"_public_access": true})
      */
     public function viewMentions(EntityManagerInterface $em)
     {
@@ -214,7 +214,7 @@ class HomeController extends AbstractController
         ]);
     }
     /**
-     * @Route("whataboutus", name="a_propos")
+     * @Route("whataboutus", name="a_propos", defaults={"_public_access": true})
      */
     public function viewWhatAboutUs(EntityManagerInterface $em)
     {

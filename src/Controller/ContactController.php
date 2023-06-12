@@ -16,7 +16,7 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact", name="app_contact")
      */
-    public function handleFormSubmission(Request $request, MailerService $mailerService): Response
+    public function handleFormSubmission(Request $request, MailerService $mailerService)
     {
         if ($request->isMethod('POST')) {
             // $name = $request->request->get('name');

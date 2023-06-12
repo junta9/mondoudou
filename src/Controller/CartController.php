@@ -19,7 +19,7 @@ use Symfony\Component\Routing\RouterInterface;
 class CartController extends AbstractController
 {
     /**
-     * @Route("/panier", name="app_panier")
+     * @Route("/panier", name="app_panier", defaults={"_public_access": true})
      */
     public function index(CartService $cartService)
     {
