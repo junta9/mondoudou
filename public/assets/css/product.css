@@ -1114,7 +1114,8 @@ input.mail_bt::placeholder {
   text-transform: capitalize;
 }
 .detail-right {
-  background-color: #cecece;
+  /* background-color: #cecece; */
+  background-color: #f3c6c6;
 }
 #add {
   width: 100%;
@@ -1160,8 +1161,13 @@ input.mail_bt::placeholder {
   #logo_title_2 {
     display: block!important;
   }
-  .containt_main {
-    flex-direction: column!important;
+}
+@media screen and (max-width: 426px) {
+  .main {
+    margin: 20px 0!important;
+  }
+  .header_box {
+    justify-content: center;
   }
 }
 
@@ -1200,5 +1206,24 @@ input.mail_bt::placeholder {
 }
 .footer-link a {
   color: white!important;
+}
+@media screen and (max-width: 426px) {
+  .footer-link ul {
+    flex-wrap: wrap;
+  }
+  .footer-link a {
+    font-size: 0.8em;
+  }
+  .card {
+    height: 100%!important;
+    margin-top: 50px;
+  }
+}
+@media screen and (max-width:375px){
+  .card {
+    height: 100%!important;
+    margin-top: 50px;
+    width: 100%!important;
+  }
 }
 /* product page css end */

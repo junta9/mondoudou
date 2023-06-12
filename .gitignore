@@ -8,7 +8,7 @@
 /public/bundles/easyadmin
 /var/
 /vendor/
-/todoExam/
+/todoExam
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###

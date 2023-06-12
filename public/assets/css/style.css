@@ -236,6 +236,12 @@ button {
   background-image: none;
 
   }
+  .main {
+    margin: 20px 0!important;
+  }
+  .header_box {
+    justify-content: center!important;
+  }
 }
 
 /* banner bg main end */
