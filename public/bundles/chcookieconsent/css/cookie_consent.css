@@ -152,11 +152,6 @@
         display: inline-block;
     }
 }
-@media screen and (max-width: 425px) {
-    .ch-cookie-consent__btn {
-        font-size: 0.9em;
-    }
-}
 
 .ch-cookie-consent__btn--secondary {
     background: transparent;
