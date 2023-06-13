@@ -1161,6 +1161,16 @@ input.mail_bt::placeholder {
   #logo_title_2 {
     display: block!important;
   }
+  /* .card {
+    height: auto!important;
+    margin-bottom: 100px;
+  }*/
+  .banner_bg_main {
+    margin-bottom: 200px!important;
+  } 
+  .produit {
+    height: auto!important;
+  }
 }
 @media screen and (max-width: 426px) {
   .main {
@@ -1168,6 +1178,10 @@ input.mail_bt::placeholder {
   }
   .header_box {
     justify-content: center;
+  }
+  .card {
+    width: auto!important;
+    height: inherit!important;
   }
 }
 
@@ -1215,7 +1229,7 @@ input.mail_bt::placeholder {
     font-size: 0.8em;
   }
   .card {
-    height: 100%!important;
+    /* height: 100%!important; */
     margin-top: 50px;
   }
 }
