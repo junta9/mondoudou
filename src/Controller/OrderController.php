@@ -56,8 +56,12 @@ class OrderController extends AbstractController
         //Recuperation des données pour creation de la commande
         $user = $this->getUser();
         $adresses = $adressesRepository->findBy(['user' => $user]);
-        $session = $request->getSession();
-        $session->set('adresseDelivery', $adresses[0]->getId());
+        if($adresses)
+        {
+
+            $session = $request->getSession();
+            $session->set('adresseDelivery', $adresses[0]->getId());
+        }
         $adresseDelivery = $session->get('adresseDelivery');
         // dd($adresseDelivery);
         $form = $this->createForm(OrderType::class, null, [

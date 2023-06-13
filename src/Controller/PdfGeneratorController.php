@@ -18,11 +18,11 @@ class PdfGeneratorController extends AbstractController
      */
     public function generateInvoice(
         $id,
-        OrderRepository $orderRepository, 
-        AdressesRepository $adressesRepository, 
+        OrderRepository $orderRepository,
+        AdressesRepository $adressesRepository,
         OrderItemRepository $orderItemRepository,
         PaymentRepository $paymentRepository
-        ): Response
+    ): Response
     {
 
         //Recuperation des données de la commande
@@ -34,6 +34,8 @@ class PdfGeneratorController extends AbstractController
         $user_firstname = $user->getFirstname();
         $address = $order->getDeliveryAddress();
         $user_address = $adressesRepository->find($address);
+        $user_address_lastname = $user_address->getLastname();
+        $user_address_firstname = $user_address->getFirstname();
         $user_address_rue = $user_address->getAdresse();
         $user_address_codepostal = $user_address->getPostalcode();
         $user_address_city = $user_address->getCity();
@@ -46,7 +48,7 @@ class PdfGeneratorController extends AbstractController
         //Injection des données dans la variable data 
         $data = [
             'imageSrc'  => $this->imageToBase64($this->getParameter('kernel.project_dir') . '/public/images/logo-mondoudou.png'),
-            'name'         => $user_lastname. ' ' . $user_firstname,
+            'name'         => $user_address_lastname . ' ' . $user_address_firstname,
             'address_rue'      => $user_address_rue,
             'address_code_postal'      => $user_address_codepostal,
             'address_city'      => $user_address_city,
@@ -62,14 +64,15 @@ class PdfGeneratorController extends AbstractController
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html);
         $dompdf->render();
-        return new Response (
+        return new Response(
             $dompdf->stream('facture', ["Attachment" => false]),
             Response::HTTP_OK,
             ['Content-Type' => 'application/pdf']
         );
     }
- 
-    private function imageToBase64($path) {
+
+    private function imageToBase64($path)
+    {
         $path = $path;
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
