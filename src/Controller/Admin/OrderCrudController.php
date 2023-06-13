@@ -35,11 +35,12 @@ class OrderCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             AssociationField::new('user_id')->hideOnForm()->hideOnIndex(),
             IntegerField::new('total'),
-            ChoiceField::new('status')
+            TextField::new('status'),
+            ChoiceField::new('status')->onlyOnForms()
                 ->setChoices([
-                    'en attente' => 'en attente',
-                    'en préparation' => 'en preparation',
-                    'commande pris en charge par le transporteur' => 'commande pris en charge par le transporteur'
+                    'En attente' => 'En attente',
+                    'En préparation' => 'En preparation',
+                    'Commande pris en charge par le transporteur' => 'Commande pris en charge par le transporteur'
                 ]),
             TextField::new('delivery_address')->hideOnIndex(),
             DateField::new('created_at')->hideOnForm(),
