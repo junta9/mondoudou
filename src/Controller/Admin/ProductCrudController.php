@@ -39,6 +39,7 @@ class ProductCrudController extends AbstractCrudController
             IdField::new('id')->onlyOnIndex(),
             TextField::new('name'),
             TextareaField::new('description'),
+            AssociationField::new('category'),
             ChoiceField::new('etat')
                 ->setChoices([
                     'Comme neuf' => 'Comme neuf',
@@ -47,7 +48,6 @@ class ProductCrudController extends AbstractCrudController
                 ]),
             Field::new('price'),//->setCurrency('EUR'),
             IntegerField::new('quantity'),
-            AssociationField::new('category'),
             // ImageField::new('imageName')->hideOnForm()
             //     ->setBasePath("/images/photos"),
             // CollectionField::new('photos')
