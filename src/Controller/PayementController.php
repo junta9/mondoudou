@@ -64,7 +64,7 @@ class PayementController extends AbstractController
         'quantity' => 1,
       ]],
       'mode' => 'payment',
-      'success_url' => $YOUR_DOMAIN . '/profile/commande/success',
+      'success_url' => $YOUR_DOMAIN . '/profile/commande/success?session_id={CHECKOUT_SESSION_ID}',
       'cancel_url' => $YOUR_DOMAIN . '/profile/commande/cancel',
 
     ]);
@@ -79,11 +79,38 @@ class PayementController extends AbstractController
    */
   public function success(
     RequestStack $session,
+    Request $request,
     ProductRepository $productRepository,
     CartService $cartService,
     EntityManagerInterface $em
   ): Response
   {
+    // Vérifier l'état du paiement ou l'authentification de l'utilisateur ici
+    // avant de permettre l'accès à cette route.
+
+    // Récupérer l'ID de la session de paiement depuis la requête
+    $sessionId = $request->query->get('session_id');
+    // dd($sessionId);
+    
+    if (!$sessionId)
+    {
+      return $this->redirectToRoute('app_panier');
+    }
+    // Vérifier l'état du paiement en utilisant l'API Stripe
+    $stripeSecretKey = "sk_test_51N7BLTLSTvAVXmvAMIVodTwS5yNjyYebx3cdcXYH9CGn40AcMwpVRNSgi30nbQ1aYIdM4IKtM9QOzUn22V6RlI0v00pxiDAkKs";
+    Stripe::setApiKey($stripeSecretKey);
+    $checkout_session = \Stripe\Checkout\Session::retrieve($sessionId);
+
+    // if (!$checkout_session)
+    // {
+    //   return $this->redirectToRoute('app_panier');
+    // }
+
+      // dd($checkout_session->payment_status);
+    if ($checkout_session->payment_status !== 'paid') {
+      // Le paiement n'est pas validé, rediriger l'utilisateur ou afficher un message d'erreur
+      return $this->redirectToRoute('app_panier');
+    }
     $panier = $session->getSession()->get("panier");
     $adresseDelivery = $session->getSession()->get("adresseDelivery");
     $transporteur = $session->getSession()->get('transporteur');

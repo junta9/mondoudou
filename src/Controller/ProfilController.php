@@ -3,11 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Adresses;
-use App\Entity\Category;
 use App\Entity\User;
 use App\Form\AdresseType;
 use App\Form\ChangePasswordFormType;
-use App\Repository\OrderRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,12 +34,9 @@ class ProfilController extends AbstractController
     /**
      * @Route("/profile", name="app_profil")
      */
-    public function index(UserRepository $userRepository, OrderRepository $orderRepository, EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $passwordHasher): Response
+    public function index(UserRepository $userRepository, EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = $userRepository->find($this->getUser());
-        $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
-        $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
-        $orders = $orderRepository->findBy(['user_id' => $user]);
         $adresse = new Adresses();
         $formAdresse = $this->createForm(AdresseType::class, $adresse);
 
@@ -89,10 +84,7 @@ class ProfilController extends AbstractController
             
             return $this->render('profil/profil.html.twig', [
                 'controller_name' => 'ProfilController',
-                'peluchesCategory' => $peluchesCategory,
-                'doudousCategory' => $doudousCategory,
                 'user' => $user,
-                'orders' => $orders,
                 'adresses' => $adresses,
                 'formulaire' => $form->createView(),
                 'formAdresse' => $formAdresse->createView(),

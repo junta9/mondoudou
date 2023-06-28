@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\PaymentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
