@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Adresses;
+use App\Entity\Category;
 use App\Entity\User;
 use App\Form\AdresseType;
 use App\Form\ChangePasswordFormType;
+use App\Repository\OrderRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,11 +36,12 @@ class ProfilController extends AbstractController
     /**
      * @Route("/profile", name="app_profil")
      */
-    public function index(UserRepository $userRepository, EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $passwordHasher): Response
+    public function index(OrderRepository $orderRepository, UserRepository $userRepository, EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = $userRepository->find($this->getUser());
         $adresse = new Adresses();
         $formAdresse = $this->createForm(AdresseType::class, $adresse);
+        $orders = $orderRepository->findBy(['user_id' => $user]);
 
 
 
@@ -81,6 +84,8 @@ class ProfilController extends AbstractController
                 $currentRoute = $this->router->match($this->requestStack->getCurrentRequest()->getPathInfo())['_route'];
                 $this->session->set('current_route', $currentRoute);
             }
+            $peluchesCategory = $em->getRepository(Category::class)->findOneBy(['id' => '2']);
+            $doudousCategory = $em->getRepository(Category::class)->findOneBy(['id' => '1']);
             
             return $this->render('profil/profil.html.twig', [
                 'controller_name' => 'ProfilController',
@@ -88,6 +93,9 @@ class ProfilController extends AbstractController
                 'adresses' => $adresses,
                 'formulaire' => $form->createView(),
                 'formAdresse' => $formAdresse->createView(),
+                'peluchesCategory' => $peluchesCategory,
+                'doudousCategory' => $doudousCategory,
+                'orders' => $orders,
             ]);
         }
     }
@@ -100,7 +108,7 @@ class ProfilController extends AbstractController
         $adresses = $em->getRepository(Adresses::class)->findBy(['user' => $user]);
         $user_firstname = $request->request->get('user-firstname');
         $user_lastname = $request->request->get('user-lastname');
-        $user_email = $request->request->get('user-email');
+        // $user_email = $request->request->get('user-email');
         $user_mobile = $request->request->get('user-mobile');
 
         // $user = new User();
